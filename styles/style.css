@@ -1,0 +1,170 @@
+* {
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+  color: #3c42c4;
+}
+
+th {
+  text-decoration: underline;
+}
+
+/* td {
+  width: 20%;
+} */
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  /* min-width: 500px;
+  min-height: 500px; */
+  width: 100%;
+  height: 100%;
+  background-color:#3c42c4;
+  /* margin: 0;
+  padding: 0; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  /* width: 50%; */
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  border: solid 0.4vh #d68fb8;
+  border-radius: 1vh;
+  background-color: #eac4ae;
+  padding: 10px;
+  cursor: pointer;
+  margin: 20px;
+  width: 15vh;
+  height: 5vh;
+  font-size: 2vh;
+}
+
+button:hover{
+  border: none;
+  border: solid 0.4vh #dda2a3;
+  border-radius: 1vh;
+  background-color: #f4dfbe;
+  padding: 10px;
+  cursor: pointer;
+  margin: 20px;
+  width: 15vh;
+  height: 5vh;
+  font-size: 2vh;
+}
+
+h1 {
+  font-size: 4vh;
+}
+
+canvas {
+  background-color: #6e51c8;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.main-menu {
+  background-color: black;
+  /* min-height: 1000px;
+  min-width: 1000px; */
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.main-menu.active {
+  display: flex;
+  flex-direction: row;
+}
+
+.screen {
+  /* margin-top: 20px; */
+  background-color: black;
+  /* min-height: 50%; */
+  /* min-width: 1000px; */
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-header {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+.screen-body {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 80%;
+  overflow: auto;
+}
+
+.screen-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+.score-item {
+  /* width: 50%; */
+  /* height: 5%; */
+  justify-content: left;
+  align-items: left;
+  text-align: left;
+}
+
+.high-scores-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.high-scores-table {
+  background-color: white;
+  color: black;
+  height: 100%;
+  width: 75%;
+  align-items: center;
+  font-size: 150%;
+}

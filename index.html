@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Slinkey Dinks</title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="/node_modules/socket.io/client-dist/socket.io.min.js"></script>
+  </head>
+  <body>
+    <div class="game" id="game">
+      <div
+        id="main-menu"
+        class="screen"
+        style="
+          background-color: #a065cd;
+        "
+      >
+        <div class="screen-header">
+          <h1>Sour Night</h1>
+        </div>
+        <div class="screen-body">
+        </div>
+        <div class="screen-footer">
+          <button id="new-game-button">New&nbsp;Game</button>
+          <button id="high-scores-button">High&nbsp;Scores</button>
+          <button id="controls-button">Controls</button>
+          <button id="about-button">About</button>
+        </div>
+      </div>
+      <div id="gameplay" class="screen">
+        <canvas id="game-canvas"></canvas>
+      </div>
+      <div id="high-scores" class="screen">
+        <div class="screen-header">
+          <h1>High&nbsp;Scores</h1>
+        </div>
+        <div class="screen-body">
+          <div class="high-scores-wrapper" id="high-scores-wrapper">
+            <table id="high-scores-table" class="high-scores-table">
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+              </tr>
+              <tr id="rank-1">
+                <td>1</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+              <tr id="rank-2">
+                <td>2</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+              <tr id="rank-3">
+                <td>3</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+              <tr id="rank-4">
+                <td>4</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+              <tr id="rank-5">
+                <td>5</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="screen-footer">
+          <button id="high-scores-back">Back</button>
+        </div>
+      </div>
+      <div id="controls" class="screen">
+        <div class="screen-header">
+          <h1>Controls</h1>
+        </div>
+        <div class="screen-body">
+          <h2>Up:</h2>
+          <button id="up"></button>
+          <h2>Down:</h2>
+          <button id="down"></button>
+          <h2>Left:</h2>
+          <button id="left"></button>
+          <h2>Right:</h2>
+          <button id="right"></button>
+        </div>
+        <div class="screen-footer">
+          <button id="controls-back">Back</button>
+        </div>
+      </div>
+      <div id="username" class="screen">
+        <div class="screen-header">
+          <h1>Tutorial</h1>
+        </div>
+        <div class="screen-body">
+          <h1 style="margin-top: 3px">Pick a Player Name</h1>
+          <input id="username-input" type="text" />
+          <button id="enter">Start!</button>
+        </div>
+        <div class="screen-footer">
+          <button id="username-back">Back</button>
+        </div>
+      </div>
+      <div id="about" class="screen">
+        <div class="screen-header">
+          <h1>About</h1>
+        </div>
+        <div class="screen-body">
+          <h2>
+            Developed by Dakota Mumford
+          </h2>
+        </div>
+        <div class="screen-footer">
+          <button id="about-back">Back</button>
+        </div>
+      </div>
+      <div id="victory" class="screen">
+        <div class="screen-header">
+          <h1>Victory</h1>
+        </div>
+        <div class="screen-body">
+          <h1>Congratulations, you won!</h1>
+          <h2>Scoring Summary</h2>
+          <h2 class="score-item" style="text-decoration: underline">
+            Level 1:
+          </h2>
+          <h3 id="l1-base" class="score-item"></h3>
+          <h3 id="l1-fuel" class="score-item"></h3>
+          <h3 id="l1-multiplier" class="score-item"></h3>
+          <h3 id="l1-total" class="score-item"></h3>
+          <h2 class="score-item" style="text-decoration: underline">
+            Level 2:
+          </h2>
+          <h3 id="l2-base" class="score-item"></h3>
+          <h3 id="l2-fuel" class="score-item"></h3>
+          <h3 id="l2-multiplier" class="score-item"></h3>
+          <h3 id="l2-total" class="score-item"></h3>
+          <h2>Total Score:</h2>
+          <h1 id="total-score" style="text-decoration: underline"></h1>
+          <h2
+            id="victory-high-score-notice"
+            style="padding-top: 5%; padding-bottom: 5%"
+          >
+            You made the high-scores list!
+          </h2>
+          <input type="text" id="victory-name" placeholder="Enter your name" />
+          <button id="victory-submit" disabled>Submit</button>
+        </div>
+        <div class="screen-footer">
+          <button id="victory-back">Menu</button>
+          <button id="victory-restart">Play Again</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let MyGame = {
+        assets: {},
+        screens: {},
+        input: {},
+        objects: {},
+        renderer: [],
+        collisionDetection: {},
+        particleManager: {},
+        persistence: {},
+      };
+    </script>
+    <script src="scripts/client/objects/player.js"></script>
+    <script src="scripts/client/rendering/graphics.js"></script>
+    <script src="scripts/client/rendering/player.js"></script>
+
+    <script src="scripts/utils/constants.js"></script>
+    <script src="scripts/utils/input-keyboard.js"></script>
+    <script src="scripts/utils/particleManager.js"></script>
+    <script src="scripts/utils/persistence.js"></script>
+    <script src="scripts/utils/queue.js"></script>
+
+    <script src="scripts/game.js"></script>
+
+    <script src="scripts/client/screens/main-menu.js"></script>
+    <script src="scripts/client/screens/about.js"></script>
+    <script src="scripts/client/screens/high-scores.js"></script>
+    <script src="scripts/client/screens/controls.js"></script>
+    <script src="scripts/client/screens/username.js"></script>
+
+    <script src="scripts/client/objects/gameModel.js"></script>
+
+    <script src="scripts/client/screens/gameplay.js"></script>
+    <script src="scripts/client/screens/victory.js"></script>
+
+    <script src="scripts/utils/loadAssets.js"></script>
+  </body>
+</html>
