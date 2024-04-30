@@ -10,10 +10,10 @@ MyGame.objects.player = function (spec) {
   let radius = 0.02;
   let fill = "#a065cd";
   let stroke = "#ddf8d0";
-  let angle = 0;
 
-  function updateAngle(direction) {
-    switch (direction) {
+  function move(message) {
+    let angle = 0;
+    switch (message.type) {
       case "up-left":
         angle = (5 * Math.PI) / 4;
         break;
@@ -39,15 +39,11 @@ MyGame.objects.player = function (spec) {
         angle = 0;
         break;
     }
-  }
-
-  function move(elapsedTime) {
-    center.x += elapsedTime * velocityConstant * Math.cos(angle);
-    center.y += elapsedTime * velocityConstant * Math.sin(angle);
+    center.x += message.elapsedTime * velocityConstant * Math.cos(angle);
+    center.y += message.elapsedTime * velocityConstant * Math.sin(angle);
   }
 
   let api = {
-    updateAngle: updateAngle,
     move: move,
     get center() {
       return center;
@@ -60,12 +56,6 @@ MyGame.objects.player = function (spec) {
     },
     set radius(val) {
       radius = val;
-    },
-    get angle() {
-      return angle;
-    },
-    set angle(val) {
-      angle = val;
     },
     get fill() {
       return fill;

@@ -52,73 +52,82 @@ MyGame.gameModel = (function (
       myPlayer.angle = Dir.UP_LEFT;
       let message = {
         type: "up-left",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (directions.up && directions.right) {
       myPlayer.angle = Dir.UP_RIGHT;
       let message = {
         type: "up-right",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
       let message = {
         type: "down-left",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
       let message = {
         type: "down-right",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (
       directions.up
     ) {
       myPlayer.angle = Dir.UP;
       let message = {
         type: "up",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (
       directions.down
     ) {
       myPlayer.angle = Dir.DOWN;
       let message = {
         type: "down",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
+      myPlayer.move(message);
     } else if (
       directions.left
     ) {
       myPlayer.angle = Dir.LEFT;
       let message = {
         type: "left",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     } else if (
       directions.right
     ) {
       myPlayer.angle = Dir.RIGHT;
       let message = {
         type: "right",
+        elapsedTime: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.updateAngle(message.type);
+      myPlayer.move(message);
     }
   }
 
@@ -134,9 +143,6 @@ MyGame.gameModel = (function (
 
   // internal state for updating game while actively playing
   let updateMyGame = function (elapsedTime) {
-    if (directions.up || directions.down || directions.left || directions.right) {
-      myPlayer.move(elapsedTime);
-    }
   };
 
   function disconnect() {
