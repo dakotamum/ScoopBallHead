@@ -1,15 +1,17 @@
-MyGame.objects.player = function (spec) {
-  "use strict";
+"use strict";
+
+function createPlayer(id) {
   // constants
   const velocityConstant = 0.000175;
+  let privateId = id;
 
   let center = {
     x: 0.5,
     y: 0.5,
   };
   let radius = 0.02;
-  let fill = "#a065cd";
-  let stroke = "#ddf8d0";
+  let fill = "#ea92ab";
+  let stroke = "#61567d";
 
   function move(message) {
     let angle = 0;
@@ -41,15 +43,17 @@ MyGame.objects.player = function (spec) {
     }
     center.x += message.elapsedTime * velocityConstant * Math.cos(angle);
     center.y += message.elapsedTime * velocityConstant * Math.sin(angle);
+    console.log(center);
   }
 
+  function update(elapsedTime) {}
+
   let api = {
+    update: update,
     move: move,
+
     get center() {
       return center;
-    },
-    set center(val) {
-      center = val;
     },
     get radius() {
       return radius;
@@ -63,6 +67,14 @@ MyGame.objects.player = function (spec) {
     get stroke() {
       return stroke;
     },
+    get id() {
+      return privateId;
+    },
+    set id(anId) {
+      privateId = anId;
+    },
   };
   return api;
-};
+}
+
+module.exports.create = (id) => createPlayer(id);

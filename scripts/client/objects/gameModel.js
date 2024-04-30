@@ -51,7 +51,8 @@ MyGame.gameModel = (function (
     if (directions.up && directions.left) {
       myPlayer.angle = Dir.UP_LEFT;
       let message = {
-        type: "up-left",
+        type: "move",
+        direction: "up-left",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -60,7 +61,8 @@ MyGame.gameModel = (function (
     } else if (directions.up && directions.right) {
       myPlayer.angle = Dir.UP_RIGHT;
       let message = {
-        type: "up-right",
+        type: "move",
+        direction: "up-right",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -69,7 +71,8 @@ MyGame.gameModel = (function (
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
       let message = {
-        type: "down-left",
+        type: "move",
+        direction: "down-left",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -78,7 +81,8 @@ MyGame.gameModel = (function (
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
       let message = {
-        type: "down-right",
+        type: "move",
+        direction: "down-right",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -89,7 +93,8 @@ MyGame.gameModel = (function (
     ) {
       myPlayer.angle = Dir.UP;
       let message = {
-        type: "up",
+        type: "move",
+        direction: "up",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -100,7 +105,8 @@ MyGame.gameModel = (function (
     ) {
       myPlayer.angle = Dir.DOWN;
       let message = {
-        type: "down",
+        type: "move",
+        direction: "down",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -111,7 +117,8 @@ MyGame.gameModel = (function (
     ) {
       myPlayer.angle = Dir.LEFT;
       let message = {
-        type: "left",
+        type: "move",
+        direction: "left",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -122,7 +129,8 @@ MyGame.gameModel = (function (
     ) {
       myPlayer.angle = Dir.RIGHT;
       let message = {
-        type: "right",
+        type: "move",
+        direction: "right",
         elapsedTime: elapsedTime,
         id: messageId++,
       };
@@ -184,7 +192,7 @@ MyGame.gameModel = (function (
   function enableControls() {
     keyboard.register(
       persistence.controls["up"],
-      (elapsedTime) => {
+      () => {
         if (!directions.up) directions.up = true;
       },
       () => {
@@ -193,7 +201,7 @@ MyGame.gameModel = (function (
     );
     keyboard.register(
       persistence.controls["down"],
-      (elapsedTime) => {
+      () => {
         if (!directions.down) directions.down = true;
       },
       () => {
@@ -202,7 +210,7 @@ MyGame.gameModel = (function (
     );
     keyboard.register(
       persistence.controls["left"],
-      (elapsedTime) => {
+      () => {
         if (!directions.left) directions.left = true;
       },
       () => {
@@ -211,7 +219,7 @@ MyGame.gameModel = (function (
     );
     keyboard.register(
       persistence.controls["right"],
-      (elapsedTime) => {
+      () => {
         if (!directions.right) directions.right = true;
       },
       () => {

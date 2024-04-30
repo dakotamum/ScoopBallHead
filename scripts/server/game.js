@@ -6,7 +6,7 @@
 "use strict";
 
 let present = require("present");
-// let SlinkyDink = require("./slinkyDink");
+let Player = require("./player");
 
 const UPDATE_RATE_MS = 50;
 let quit = false;
@@ -21,25 +21,27 @@ function processInput() {
   for (let inputIndex in processMe) {
     let input = processMe[inputIndex];
     let client = activeClients[input.id];
-    // if (client !== undefined)
-      // client.slinkyDink.directions = input.message.directions;
+    client.lastMessageId = input.message.id;
+    if (input.message.type === "move") client?.player.move(input.message);
   }
 }
 
-function update(elapsedTime, currentTime) {
-}
+function update(elapsedTime, currentTime) {}
 
-function updateClients() {
+function updateClients(elapsedTime) {
   for (let id in activeClients) {
     let client = activeClients[id];
     let update = {
+      id: id,
+      player: client.player,
+      lastMessageId: client.lastMessageId,
+      updateWindow: elapsedTime,
     };
-    // client.socket.emit("update-self", update);
-    // client.socket.emit("update-food-particles", foodParticles);
+    client.socket.emit("update-self", update);
 
     for (let otherId in activeClients) {
       if (otherId !== id) {
-        // activeClients[otherId].socket.emit("update-other", update);
+        activeClients[otherId].socket.emit("update-other", update);
       }
     }
   }
@@ -48,7 +50,7 @@ function updateClients() {
 function gameLoop(currentTime, elapsedTime) {
   processInput();
   update(elapsedTime, currentTime);
-  updateClients();
+  updateClients(elapsedTime);
 
   if (!quit) {
     setTimeout(() => {
@@ -61,16 +63,20 @@ function gameLoop(currentTime, elapsedTime) {
 function initializeSocketIO(httpServer) {
   let io = require("socket.io")(httpServer);
 
-  function notifyConnect(socket/*, newPlayer*/) {
-    // for (let id in activeClients) {
-    //   let client = activeClients[id];
-    //   if (newPlayer.id !== id) {
-    //     client.socket.emit("connect-other", {
-    //     });
-    //     socket.emit("connect-other", {
-    //     });
-    //   }
-    // }
+  function notifyConnect(socket, newPlayer) {
+    for (let id in activeClients) {
+      let client = activeClients[id];
+      if (newPlayer.id !== id) {
+        client.socket.emit("connect-other", {
+          id: newPlayer.id,
+          player: newPlayer,
+        });
+        socket.emit("connect-other", {
+          id: client.player.id,
+          player: client.player,
+        });
+      }
+    }
   }
 
   function notifyDisconnect(playerId) {
@@ -78,6 +84,7 @@ function initializeSocketIO(httpServer) {
       let client = activeClients[id];
       if (slinkyDinkId !== id) {
         client.socket.emit("disconnect-other", {
+          id: playerId,
         });
       }
     }
@@ -85,29 +92,29 @@ function initializeSocketIO(httpServer) {
 
   io.on("connection", function (socket) {
     console.log("Connection established: ", socket.id);
-    // let newPlayer = Player.create(
-    //   socket.id,
-    //   socket.handshake.query["username"],
-    // );
+    let newPlayer = Player.create(socket.id);
     activeClients[socket.id] = {
-      // socket: socket,
-      // player: newPlayer,
+      socket: socket,
+      player: newPlayer,
     };
+
     socket.emit("connect-ack", {
-      // player: newPlayer,
+      player: newPlayer,
     });
 
     socket.on("disconnect", function () {
-      // delete activeClients[socket.id];
-      // notifyDisconnect(socket.id);
+      delete activeClients[socket.id];
+      notifyDisconnect(socket.id);
     });
 
     socket.on("input", function (data) {
-      // inputQueue.push({
-      // });
+      inputQueue.push({
+        id: socket.id,
+        message: data,
+      });
     });
 
-    notifyConnect(socket/*, newPlayer*/);
+    notifyConnect(socket, newPlayer);
   });
 }
 
