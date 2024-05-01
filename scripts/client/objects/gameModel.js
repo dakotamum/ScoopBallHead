@@ -38,12 +38,10 @@ MyGame.gameModel = (function (
   });
 
   // internal state for when the game is over
-  let updateMyGameOver = function (elapsedTime) {
-  };
+  let updateMyGameOver = function (elapsedTime) {};
 
   // render game over state
-  let renderMyGameOver = function (elapsedTime) {
-  };
+  let renderMyGameOver = function (elapsedTime) {};
 
   // processes keyboard input
   function processInput(elapsedTime) {
@@ -53,89 +51,89 @@ MyGame.gameModel = (function (
       let message = {
         type: "move",
         direction: "up-left",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
+      messageHistory.enqueue(message);
       myPlayer.move(message);
     } else if (directions.up && directions.right) {
       myPlayer.angle = Dir.UP_RIGHT;
       let message = {
         type: "move",
         direction: "up-right",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       myPlayer.move(message);
+      messageHistory.enqueue(message);
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
       let message = {
         type: "move",
         direction: "down-left",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       myPlayer.move(message);
+      messageHistory.enqueue(message);
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
       let message = {
         type: "move",
         direction: "down-right",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       myPlayer.move(message);
-    } else if (
-      directions.up
-    ) {
+      messageHistory.enqueue(message);
+    } else if (directions.up) {
       myPlayer.angle = Dir.UP;
       let message = {
         type: "move",
         direction: "up",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       myPlayer.move(message);
-    } else if (
-      directions.down
-    ) {
+      messageHistory.enqueue(message);
+    } else if (directions.down) {
       myPlayer.angle = Dir.DOWN;
       let message = {
         type: "move",
         direction: "down",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
+      messageHistory.enqueue(message);
       myPlayer.move(message);
-    } else if (
-      directions.left
-    ) {
+    } else if (directions.left) {
       myPlayer.angle = Dir.LEFT;
       let message = {
         type: "move",
         direction: "left",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
+      messageHistory.enqueue(message);
       myPlayer.move(message);
-    } else if (
-      directions.right
-    ) {
+    } else if (directions.right) {
       myPlayer.angle = Dir.RIGHT;
       let message = {
         type: "move",
         direction: "right",
-        elapsedTime: elapsedTime,
+        updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       myPlayer.move(message);
+      messageHistory.enqueue(message);
     }
   }
 
@@ -150,8 +148,7 @@ MyGame.gameModel = (function (
   }
 
   // internal state for updating game while actively playing
-  let updateMyGame = function (elapsedTime) {
-  };
+  let updateMyGame = function (elapsedTime) {};
 
   function disconnect() {
     socket.disconnect();
@@ -167,24 +164,37 @@ MyGame.gameModel = (function (
     internalUpdate = updateMyGame;
     internalRender = renderMyGame;
     // set up initial connection and send username
-    socket = io({ query: { /*username: mySlinkeyDink.name*/ } });
-    socket.on("connect-ack", function(data) {
+    socket = io({
+      query: {
+        /*username: mySlinkeyDink.name*/
+      },
+    });
+    socket.on("connect-ack", function (data) {});
+
+    socket.on("update-self", function (data) {
+      let done = false;
+      while (!done && !messageHistory.empty) {
+        if (messageHistory.front.id === data.lastMessageId) {
+          done = true;
+        }
+        messageHistory.dequeue();
+      }
+      let memory = queue();
+      while (!messageHistory.empty) {
+        let message = messageHistory.dequeue();
+        if (message.type === "move") {
+          myPlayer.move(message);
+        }
+        memory.enqueue(message);
+      }
+      messageHistory = memory;
     });
 
-    socket.on("update-self", function(data) {
-    });
+    socket.on("update-other", function (data) {});
 
-    socket.on("update-other", function(data) {
-    });
+    socket.on("connect-other", function (data) {});
 
-    socket.on("update-food-particles", function(data) {
-    });
-
-    socket.on("connect-other", function(data) {
-    });
-
-    socket.on("disconnect-other", function(data) {
-    });
+    socket.on("disconnect-other", function (data) {});
     enableControls();
   }
 
@@ -226,12 +236,10 @@ MyGame.gameModel = (function (
         directions.right = false;
       }
     );
-
   }
 
   // disable controls for the lander
-  function disableControls() {
-  }
+  function disableControls() {}
 
   return {
     setupMyGame: setupMyGame,

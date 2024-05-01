@@ -12,6 +12,7 @@ function createPlayer(id) {
   let radius = 0.02;
   let fill = "#ea92ab";
   let stroke = "#61567d";
+  let reportUpdate = false;
 
   function move(message) {
     let angle = 0;
@@ -41,9 +42,9 @@ function createPlayer(id) {
         angle = 0;
         break;
     }
-    center.x += message.elapsedTime * velocityConstant * Math.cos(angle);
-    center.y += message.elapsedTime * velocityConstant * Math.sin(angle);
-    console.log(center);
+    center.x += message.updateWindow * velocityConstant * Math.cos(angle);
+    center.y += message.updateWindow * velocityConstant * Math.sin(angle);
+    reportUpdate = true;
   }
 
   function update(elapsedTime) {}
@@ -72,6 +73,12 @@ function createPlayer(id) {
     },
     set id(anId) {
       privateId = anId;
+    },
+    set reportUpdate(value) {
+      reportUpdate = value;
+    },
+    get reportUpdate() {
+      return reportUpdate;
     },
   };
   return api;

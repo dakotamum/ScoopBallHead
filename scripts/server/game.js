@@ -37,13 +37,17 @@ function updateClients(elapsedTime) {
       lastMessageId: client.lastMessageId,
       updateWindow: elapsedTime,
     };
-    client.socket.emit("update-self", update);
-
-    for (let otherId in activeClients) {
-      if (otherId !== id) {
-        activeClients[otherId].socket.emit("update-other", update);
+    if (client.player.reportUpdate) {
+      client.socket.emit("update-self", update);
+      for (let otherId in activeClients) {
+        if (otherId !== id) {
+          activeClients[otherId].socket.emit("update-other", update);
+        }
       }
     }
+  }
+  for (let clientId in activeClients) {
+    activeClients[clientId].player.reportUpdate = false;
   }
 }
 

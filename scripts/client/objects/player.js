@@ -39,8 +39,8 @@ MyGame.objects.player = function (spec) {
         angle = 0;
         break;
     }
-    center.x += message.elapsedTime * velocityConstant * Math.cos(angle);
-    center.y += message.elapsedTime * velocityConstant * Math.sin(angle);
+    center.x += message.updateWindow * velocityConstant * Math.cos(angle);
+    center.y += message.updateWindow * velocityConstant * Math.sin(angle);
   }
 
   let api = {
