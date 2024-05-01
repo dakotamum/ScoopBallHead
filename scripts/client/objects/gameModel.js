@@ -157,6 +157,14 @@ MyGame.gameModel = (function (
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
     renderer.player.render(myPlayer);
+    for (const id in playerOthers) {
+      if (playerOthers.hasOwnProperty(id)) {
+        // Check if the property is directly on the object
+        renderer.player.render(
+          playerOthers[id]
+        );
+      }
+    }
   };
 
   // setup the game model for a new game
@@ -190,9 +198,28 @@ MyGame.gameModel = (function (
       messageHistory = memory;
     });
 
-    socket.on("update-other", function (data) {});
+    socket.on("update-other", function (data) {
+      if (playerOthers.hasOwnProperty(data.id)) {
+        let otherPlayer = playerOthers[data.id];
+        otherPlayer.player = data.player;
+        console.log(data.player);
+        // otherPlayer.goal = {
+        //   dinks: data.slinkyDink.dinks,
+        //   updateWindow: data.updateWindow,
+        // };
+      }
+    });
 
-    socket.on("connect-other", function (data) {});
+    socket.on("connect-other", function (data) {
+      let newPlayer = MyGame.objects.remotePlayer();
+      newPlayer.id = data.id;
+      newPlayer.player = data.player;
+      // newPlayer.goal = {
+      //   dinks: data.slinkyDink.dinks,
+      //   updateWindow: 0,
+      // };
+      playerOthers[data.id] = newPlayer;
+    });
 
     socket.on("disconnect-other", function (data) {});
     enableControls();
