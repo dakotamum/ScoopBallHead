@@ -89,7 +89,7 @@ function initializeSocketIO(httpServer) {
   function notifyDisconnect(playerId) {
     for (let id in activeClients) {
       let client = activeClients[id];
-      if (slinkyDinkId !== id) {
+      if (playerId !== id) {
         client.socket.emit("disconnect-other", {
           id: playerId,
         });

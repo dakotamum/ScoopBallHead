@@ -201,8 +201,7 @@ MyGame.gameModel = (function (
     socket.on("update-other", function (data) {
       if (playerOthers.hasOwnProperty(data.id)) {
         let otherPlayer = playerOthers[data.id];
-        otherPlayer.player = data.player;
-        console.log(data.player);
+        otherPlayer.center = data.player.center;
         // otherPlayer.goal = {
         //   dinks: data.slinkyDink.dinks,
         //   updateWindow: data.updateWindow,
