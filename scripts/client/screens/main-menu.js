@@ -1,5 +1,5 @@
 // Main menu screen
-MyGame.screens["main-menu"] = (function (game) {
+MyGame.screens["main-menu"] = (function (game, assets) {
   "use-strict";
 
   // register event listeners for buttons
@@ -26,10 +26,11 @@ MyGame.screens["main-menu"] = (function (game) {
       });
   }
   function run() {
-    // do nothing
+    assets.mainMenuMusic.loop = true;
+    assets.mainMenuMusic.play();
   }
   return {
     initialize: initialize,
     run: run,
   };
-})(MyGame.game);
+})(MyGame.game, MyGame.assets);

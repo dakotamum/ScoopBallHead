@@ -3,7 +3,8 @@ MyGame.screens["gameplay"] = (function (
   game,
   input,
   gameModel,
-  graphics
+  graphics,
+  assets
 ) {
   "use-strict";
   let elapsedTime = 0;
@@ -50,6 +51,8 @@ MyGame.screens["gameplay"] = (function (
 
   // setup game model and start game loop
   function run() {
+    assets.mainMenuMusic.pause();
+    assets.mainMenuMusic.currentTime = 0;
     previousTime = performance.now();
     cancelNextRequest = false;
     gameModel.setupMyGame();
@@ -64,5 +67,6 @@ MyGame.screens["gameplay"] = (function (
   MyGame.game,
   MyGame.input,
   MyGame.gameModel,
-  MyGame.graphics
+  MyGame.graphics,
+  MyGame.assets
 );
