@@ -9,7 +9,7 @@ function createPlayer(id) {
     x: 0.5,
     y: 0.5,
   };
-  let radius = 0.02;
+  let radius = 0.03;
   let fill = "#ea92ab";
   let stroke = "#61567d";
   let reportUpdate = false;

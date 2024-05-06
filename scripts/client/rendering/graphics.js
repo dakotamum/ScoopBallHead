@@ -158,12 +158,12 @@ MyGame.graphics = (function (assets) {
   }
 
   // draw a circle
-  function drawCircle(spec, invincible) {
+  function drawHead(spec, invincible) {
     context.save();
     context.beginPath();
     context.arc(
       spec.center.x * canvas.width,
-      spec.center.y * canvas.height,
+      spec.center.y * canvas.height - spec.radius * canvas.height / 2,
       spec.radius * canvas.width,
       0,
       2 * Math.PI
@@ -237,15 +237,25 @@ MyGame.graphics = (function (assets) {
   // draw a texture from an image
   function drawTexture(image, center, rotation, size) {
     context.save();
-    context.translate(center.x * canvas.width, center.y * canvas.height);
+    // context.translate(center.x * canvas.width, center.y * canvas.height);
     context.rotate(rotation);
-    context.translate(-center.x, -center.y);
+    // context.translate(-center.x, -center.y);
+    // context.drawImage(
+    //   image,
+    //   center.x - (size.width * canvas.width) / 2,
+    //   center.y - (size.height * canvas.height) / 2,
+    //   size.width * canvas.width,
+    //   size.height * canvas.height);
+
+    context.save();
+    // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
+    // context.translate(-center.x, -center.y);
     context.drawImage(
       image,
-      center.x - (size.width * canvas.width) / 2,
-      center.y - (size.height * canvas.height) / 2,
-      size.width * canvas.width,
-      size.height * canvas.height
+      (center.x * canvas.width) - size * canvas.width / 2,
+      (center.y * canvas.height) - size * canvas.height / 2,
+      size * canvas.width,
+      size * canvas.height
     );
     context.restore();
   }
@@ -295,7 +305,7 @@ MyGame.graphics = (function (assets) {
     },
     clear: clear,
     drawBackground: drawBackground,
-    drawCircle: drawCircle,
+    drawHead: drawHead,
     drawRectangle: drawRectangle,
     drawTexture: drawTexture,
     drawText: drawText,

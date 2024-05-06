@@ -4,7 +4,8 @@ MyGame.renderer.player = (function (graphics, assets) {
 
   // render the player
   function render(spec) {
-    graphics.drawCircle(spec);
+    graphics.drawHead(spec);
+    graphics.drawTexture(assets.player, spec.center, 0, spec.radius * 3.75);
   }
 
   return {
