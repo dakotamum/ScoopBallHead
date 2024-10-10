@@ -5,6 +5,7 @@ let loadAssets = (function () {
     // images and sound paths here
     // assetName: "path/to/asset"
     player: "assets/player.png",
+    coneman: "assets/coneman.png",
     gameTitle: "assets/gameTitle.png",
     mainMenuMusic: "assets/mainMenuMusic.mp3"
   };

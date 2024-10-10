@@ -135,6 +135,8 @@ MyGame.gameModel = (function (
       myPlayer.move(message);
       messageHistory.enqueue(message);
     }
+    else
+      myPlayer.moveTime = 0.0;
   }
 
   // updates the game model depending on current internal state

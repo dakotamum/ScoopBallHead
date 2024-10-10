@@ -252,6 +252,34 @@ MyGame.graphics = (function (assets) {
     // context.translate(-center.x, -center.y);
     context.drawImage(
       image,
+      0, 0, 256, 256,
+      (center.x * canvas.width) - size * canvas.width / 2,
+      (center.y * canvas.height) - size * canvas.height / 2,
+      size * canvas.width,
+      size * canvas.height
+    );
+    context.restore();
+  }
+
+  // draw a frame of the player
+  function drawPlayerFrame(image, frameNumber, center, rotation, size) {
+    context.save();
+    // context.translate(center.x * canvas.width, center.y * canvas.height);
+    context.rotate(rotation);
+    // context.translate(-center.x, -center.y);
+    // context.drawImage(
+    //   image,
+    //   center.x - (size.width * canvas.width) / 2,
+    //   center.y - (size.height * canvas.height) / 2,
+    //   size.width * canvas.width,
+    //   size.height * canvas.height);
+
+    context.save();
+    // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
+    // context.translate(-center.x, -center.y);
+    context.drawImage(
+      image, (frameNumber % 16) * 256,
+      Math.floor(frameNumber / 16) * 256, 256, 256,
       (center.x * canvas.width) - size * canvas.width / 2,
       (center.y * canvas.height) - size * canvas.height / 2,
       size * canvas.width,
@@ -308,6 +336,7 @@ MyGame.graphics = (function (assets) {
     drawHead: drawHead,
     drawRectangle: drawRectangle,
     drawTexture: drawTexture,
+    drawPlayerFrame: drawPlayerFrame,
     drawText: drawText,
     drawRelativeText: drawRelativeText,
     drawScores: drawScores,
