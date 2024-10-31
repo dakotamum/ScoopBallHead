@@ -118,43 +118,44 @@ MyGame.graphics = (function (assets) {
 
   // draw the game background
   // Can switch to translating but this works. Each edge coordinates get the diff added to them (first two are at 0,0)
-  function drawBackground(head) {
-    //top left
-    let tileWidth = assets.tile_aqua.width;
-    let tileHeight = assets.tile_aqua.height;
-    let diffX = 0.5 - head.center.x;
-    let diffY = 0.5 - head.center.y;
+  function drawBackground(player) {
+
+    // //top left
+    let tileSize_w = 1 / 9;
+    let canvasSize_w = 0.25;
+    // let diffX = 0.5 - head.center.x;
+    // let diffY = 0.5 - head.center.y;
     drawRectangle({
       fillStyle: "red",
       strokeStyle: "black",
-      x: canvas.width * diffX - tileWidth,
-      y: canvas.height * diffY - tileHeight,
-      width: WORLD_DIMENSIONS.width * canvas.width + (5 / 2) * tileWidth,
-      height: WORLD_DIMENSIONS.height * canvas.height + (5 / 2) * tileHeight,
+      x: 0 - ((player.center.x - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
+      y: 0 - ((player.center.y - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
+      width: tileSize_w * canvas.width / canvasSize_w,
+      height: tileSize_w * canvas.width / canvasSize_w
     });
-    drawRectangle({
-      fillStyle: "black",
-      strokeStyle: "black",
-      x: canvas.width * diffX,
-      y: canvas.height * diffY,
-      width: WORLD_DIMENSIONS.width * canvas.width,
-      height: WORLD_DIMENSIONS.height * canvas.height,
-    });
-    for (
-      let i = canvas.width * diffX;
-      i < canvas.width + tileWidth &&
-      i < canvas.width * (WORLD_DIMENSIONS.width + diffX);
-      i += tileWidth
-    ) {
-      for (
-        let j = canvas.height * diffY;
-        j < canvas.height + tileHeight &&
-        j < canvas.height * (WORLD_DIMENSIONS.height + diffY);
-        j += tileHeight
-      ) {
-        context.drawImage(assets.tile_aqua, i, j, tileWidth, tileHeight);
-      }
-    }
+    // drawRectangle({
+    //   fillStyle: "black",
+    //   strokeStyle: "black",
+    //   x: canvas.width * diffX,
+    //   y: canvas.height * diffY,
+    //   width: WORLD_DIMENSIONS.width * canvas.width,
+    //   height: WORLD_DIMENSIONS.height * canvas.height,
+    // });
+    // for (
+    //   let i = canvas.width * diffX;
+    //   i < canvas.width + tileWidth &&
+    //   i < canvas.width * (WORLD_DIMENSIONS.width + diffX);
+    //   i += tileWidth
+    // ) {
+    //   for (
+    //     let j = canvas.height * diffY;
+    //     j < canvas.height + tileHeight &&
+    //     j < canvas.height * (WORLD_DIMENSIONS.height + diffY);
+    //     j += tileHeight
+    //   ) {
+    //     context.drawImage(assets.tile_aqua, i, j, tileWidth, tileHeight);
+    //   }
+    // }
   }
 
   // draw a circle
@@ -280,8 +281,8 @@ MyGame.graphics = (function (assets) {
     context.drawImage(
       image, (frameNumber % 16) * 256,
       Math.floor(frameNumber / 16) * 256, 256, 256,
-      (center.x * canvas.width) - size * canvas.width / 2,
-      (center.y * canvas.height) - size * canvas.height / 2,
+      (0.5 * canvas.width) - size * canvas.width / 2,
+      (0.5 * canvas.height) - size * canvas.height / 2,
       size * canvas.width,
       size * canvas.height
     );

@@ -158,6 +158,7 @@ MyGame.gameModel = (function (
 
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
+    MyGame.graphics.drawBackground(myPlayer);
     renderer.player.render(myPlayer);
     for (const id in playerOthers) {
       if (playerOthers.hasOwnProperty(id)) {
