@@ -1,7 +1,7 @@
 const WORLD_DIMENSIONS = {"height": 3, "width": 3};
 const COLOR_THEME = [
 "#3c42c4",
-"#6e51c8",
+"#2f2f2f",
 "#a065cd",
 "#ce79d2",
 "#d68fb8",

@@ -50,8 +50,8 @@ MyGame.objects.player = function (spec) {
         break;
     }
     moveTime += message.updateWindow;
-    center.x += message.updateWindow * velocityConstant * Math.cos(angle);
-    center.y += message.updateWindow * velocityConstant * Math.sin(angle);
+    center.x = Math.max(0.0, Math.min(1.0, center.x + message.updateWindow * velocityConstant * Math.cos(angle)));
+    center.y = Math.max(0.0, Math.min(1.0, center.y + message.updateWindow * velocityConstant * Math.sin(angle)));
   }
 
   let api = {

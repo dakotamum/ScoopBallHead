@@ -22,9 +22,9 @@ MyGame.graphics = (function (assets) {
   function drawRectangle(spec) {
     context.save();
     context.fillStyle = spec.fillStyle;
-    context.strokeStyle = spec.strokeStyle;
+    // context.strokeStyle = spec.strokeStyle;
     context.fillRect(spec.x, spec.y, spec.width, spec.height);
-    context.strokeRect(spec.x, spec.y, spec.width, spec.height);
+    // context.strokeRect(spec.x, spec.y, spec.width, spec.height);
     context.restore();
   }
 
@@ -125,14 +125,37 @@ MyGame.graphics = (function (assets) {
     let canvasSize_w = 0.25;
     // let diffX = 0.5 - head.center.x;
     // let diffY = 0.5 - head.center.y;
-    drawRectangle({
-      fillStyle: "red",
-      strokeStyle: "black",
-      x: 0 - ((player.center.x - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
-      y: 0 - ((player.center.y - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
-      width: tileSize_w * canvas.width / canvasSize_w,
-      height: tileSize_w * canvas.width / canvasSize_w
-    });
+
+
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        const r = (row * 12345 + col * 6789) % 256;
+        const g = (row * 6789 + col * 12345) % 256;
+        const b = (row * 3333 + col * 4444) % 256;
+        // Convert each component to a two-digit hex and combine
+        let color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        drawRectangle({
+          fillStyle: color,
+          strokeStyle: "",
+          x: (((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w),
+          y: (((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w),
+          width: tileSize_w * canvas.width / canvasSize_w,
+          height: tileSize_w * canvas.width / canvasSize_w
+        });
+      }
+    }
+
+
+
+    // drawRectangle({
+    //   fillStyle: "red",
+    //   strokeStyle: "black",
+    //   x: 0 - ((player.center.x - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
+    //   y: 0 - ((player.center.y - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
+    //   width: tileSize_w * canvas.width / canvasSize_w,
+    //   height: tileSize_w * canvas.width / canvasSize_w
+    // });
+
     // drawRectangle({
     //   fillStyle: "black",
     //   strokeStyle: "black",
