@@ -74,7 +74,7 @@ h1 {
 }
 
 canvas {
-  background-color: #2f2f2f;
+  background-color: #6f00ff;
 }
 
 .game {
@@ -148,7 +148,7 @@ canvas {
   /* width: 50%; */
   /* height: 5%; */
   justify-content: left;
-  align-items: left;
+  /* align-items: left; */
   text-align: left;
 }
 

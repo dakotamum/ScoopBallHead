@@ -7,7 +7,7 @@ MyGame.objects.player = function (spec) {
     x: 0.5,
     y: 0.5,
   };
-  let radius = 0.03;
+  let radius = 0.0625;
   let fill = "#a065cd";
   let stroke = "#ddf8d0";
   let moveTime = 0.0;
