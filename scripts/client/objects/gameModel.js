@@ -168,7 +168,6 @@ MyGame.gameModel = (function (
         );
       }
     }
-    MyGame.graphics.drawBottomWall(myPlayer);
   };
 
   // setup the game model for a new game

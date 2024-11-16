@@ -120,62 +120,16 @@ MyGame.graphics = (function (assets) {
     });
   }
 
-  // draw the bottom wall
-  function drawBottomWall(player) {
-    // draw bottom wall
-    for (let col = 0; col < boardSize_tiles; col++) {
-      let row = boardSize_tiles;
-      context.save();
-      context.drawImage(
-        assets.wallBottom, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
-
-    // draw bottom-left corner
-    {
-      let row = boardSize_tiles;
-      let col = -1;
-      context.save();
-      context.drawImage(
-        assets.wallBottomLeft, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
-    // draw bottom-right corner
-    {
-      let row = boardSize_tiles;
-      let col = boardSize_tiles;
-      context.save();
-      context.drawImage(
-        assets.wallBottomRight, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
-  }
 
   // draw the game background
   function drawBackground(player) {
     // draw grass
-
     let numTilesInScreen = Math.ceil(canvasSize_w / tileSize_w);
-    let colMin = Math.max(-1, Math.floor((player.center.x - (canvasSize_w / 2)) / tileSize_w));
-    let colMax = Math.min(boardSize_tiles + 1, colMin + numTilesInScreen + 1);
+    let colMin = Math.max(0, Math.floor((player.center.x - (canvasSize_w / 2)) / tileSize_w));
+    let colMax = Math.min(boardSize_tiles, colMin + numTilesInScreen + 2);
 
-    let rowMin = Math.max(-1, Math.floor((player.center.y - (canvasSize_w / 2)) / tileSize_w));
-    let rowMax = Math.min(boardSize_tiles + 1, rowMin + numTilesInScreen + 1);
+    let rowMin = Math.max(0, Math.floor((player.center.y - (canvasSize_w / 2)) / tileSize_w));
+    let rowMax = Math.min(boardSize_tiles, rowMin + numTilesInScreen + 2);
 
     for (let row = rowMin; row < rowMax; row++) {
       for (let col = colMin; col < colMax; col++) {
@@ -191,90 +145,105 @@ MyGame.graphics = (function (assets) {
       }
     }
 
-    for (let col = -1; col < 3; col++) {
-      let row = 5;
-      context.save();
-      context.drawImage(
-        assets.wallBottom, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
+    for (let row = rowMin; row < rowMax; row++) {
+      for (let col = colMin; col < colMax; col++) {
+        if (assets.tileMap[row][col] === 0) continue;
+        context.save();
+        context.drawImage(
+          assets.tileSet[assets.tileMap[row][col]], 
+          Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2)) - 0.25 * (tileSize_w)) * canvas.width / canvasSize_w)),
+          Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+          Math.ceil(1.25 * tileSize_w * canvas.width / canvasSize_w)
+        );
+        context.restore();
+      }
     }
 
-    // draw left wall
-    for (let row = 0; row < boardSize_tiles; row++) {
-      let col = -1;
-      context.save();
-      context.drawImage(
-        assets.wallLeft, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
+    // for (let col = 0; col < 3; col++) {
+    //   let row = 5;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallBottom, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
 
-    // draw right wall
-    for (let row = 0; row < boardSize_tiles; row++) {
-      let col = boardSize_tiles;
-      context.save();
-      context.drawImage(
-        assets.wallRight, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
+    // // draw left wall
+    // for (let row = 0; row < boardSize_tiles; row++) {
+    //   let col = 0;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallLeft, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
 
-    // draw top wall
-    for (let col = 0; col < boardSize_tiles; col++) {
-      let row = -1;
-      context.save();
-      context.drawImage(
-        assets.wallTop, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
+    // // draw right wall
+    // for (let row = 0; row < boardSize_tiles; row++) {
+    //   let col = boardSize_tiles;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallRight, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
 
-    // draw top-right wall
-    {
-      let row = -1;
-      let col = boardSize_tiles;
-      context.save();
-      context.drawImage(
-        assets.wallTopRight, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
+    // // draw top wall
+    // for (let col = 0; col < boardSize_tiles; col++) {
+    //   let row = 0;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallTop, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
 
-    // draw top-left wall
-    {
-      let row = -1;
-      let col = -1;
-      context.save();
-      context.drawImage(
-        assets.wallTopLeft, 
-        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      );
-      context.restore();
-    }
+    // // draw top-right wall
+    // {
+    //   let row = 0;
+    //   let col = boardSize_tiles;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallTopRight, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
+
+    // // draw top-left wall
+    // {
+    //   let row = 0;
+    //   let col = 0;
+    //   context.save();
+    //   context.drawImage(
+    //     assets.wallTopLeft, 
+    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+    //   );
+    //   context.restore();
+    // }
   }
 
   // draw a circle
@@ -438,7 +407,6 @@ MyGame.graphics = (function (assets) {
       return canvas;
     },
     clear: clear,
-    drawBottomWall: drawBottomWall,
     drawBackground: drawBackground,
     drawHead: drawHead,
     drawRectangle: drawRectangle,
