@@ -16,6 +16,7 @@ let loadAssets = (function () {
     wallBottom: "assets/walls/wall_bottom.png",
     wallBottomLeft: "assets/walls/wall_bottom_left.png",
     wallBottomRight: "assets/walls/wall_bottom_right.png",
+    grass: "assets/grass.png"
   };
   let loadedAssets = 0;
 

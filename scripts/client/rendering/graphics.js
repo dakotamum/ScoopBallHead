@@ -2,9 +2,11 @@
 MyGame.graphics = (function (assets) {
   "use strict";
   let canvas = document.getElementById("game-canvas");
-  let canvasSize_w = 0.5;
-  let tileSize_w = 1.0 / 9;
+  let canvasSize_w = 1.0 / 2;
+  let tileSize_w = 1.0 / 16;
+  let boardSize_tiles = 16;
   let gamediv = document.getElementById("game");
+
   canvas.width = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
   canvas.height = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
 
@@ -121,8 +123,8 @@ MyGame.graphics = (function (assets) {
   // draw the bottom wall
   function drawBottomWall(player) {
     // draw bottom wall
-    for (let col = 0; col < 9; col++) {
-      let row = 9;
+    for (let col = 0; col < boardSize_tiles; col++) {
+      let row = boardSize_tiles;
       context.save();
       context.drawImage(
         assets.wallBottom, 
@@ -133,9 +135,10 @@ MyGame.graphics = (function (assets) {
       );
       context.restore();
     }
+
     // draw bottom-left corner
     {
-      let row = 9;
+      let row = boardSize_tiles;
       let col = -1;
       context.save();
       context.drawImage(
@@ -149,8 +152,8 @@ MyGame.graphics = (function (assets) {
     }
     // draw bottom-right corner
     {
-      let row = 9;
-      let col = 9;
+      let row = boardSize_tiles;
+      let col = boardSize_tiles;
       context.save();
       context.drawImage(
         assets.wallBottomRight, 
@@ -164,34 +167,45 @@ MyGame.graphics = (function (assets) {
   }
 
   // draw the game background
-  // Can switch to translating but this works. Each edge coordinates get the diff added to them (first two are at 0,0)
   function drawBackground(player) {
+    // draw grass
 
-    // //top left
-    // let tileSize_w = 1 / 9;
-    // let diffX = 0.5 - head.center.x;
-    // let diffY = 0.5 - head.center.y;
+    let numTilesInScreen = Math.ceil(canvasSize_w / tileSize_w);
+    let colMin = Math.max(-1, Math.floor((player.center.x - (canvasSize_w / 2)) / tileSize_w));
+    let colMax = Math.min(boardSize_tiles + 1, colMin + numTilesInScreen + 1);
 
-    for (let row = -1; row < 10; row++) {
-      for (let col = -1; col < 10; col++) {
-        const r = (row * 12345 + col * 6789) % 256;
-        const g = (row * 6789 + col * 12345) % 256;
-        const b = (row * 3333 + col * 4444) % 256;
-        // Convert each component to a two-digit hex and combine
-        let color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-        drawRectangle({
-          fillStyle: "#00ff2f",
-          strokeStyle: "",
-          x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-        });
+    let rowMin = Math.max(-1, Math.floor((player.center.y - (canvasSize_w / 2)) / tileSize_w));
+    let rowMax = Math.min(boardSize_tiles + 1, rowMin + numTilesInScreen + 1);
+
+    for (let row = rowMin; row < rowMax; row++) {
+      for (let col = colMin; col < colMax; col++) {
+        context.save();
+        context.drawImage(
+          assets.grass, 
+          Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+          Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+        );
+        context.restore();
       }
     }
 
+    for (let col = -1; col < 3; col++) {
+      let row = 5;
+      context.save();
+      context.drawImage(
+        assets.wallBottom, 
+        Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+        Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+        Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+        Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+      );
+      context.restore();
+    }
+
     // draw left wall
-    for (let row = 0; row < 9; row++) {
+    for (let row = 0; row < boardSize_tiles; row++) {
       let col = -1;
       context.save();
       context.drawImage(
@@ -205,8 +219,8 @@ MyGame.graphics = (function (assets) {
     }
 
     // draw right wall
-    for (let row = 0; row < 9; row++) {
-      let col = 9;
+    for (let row = 0; row < boardSize_tiles; row++) {
+      let col = boardSize_tiles;
       context.save();
       context.drawImage(
         assets.wallRight, 
@@ -219,7 +233,7 @@ MyGame.graphics = (function (assets) {
     }
 
     // draw top wall
-    for (let col = 0; col < 9; col++) {
+    for (let col = 0; col < boardSize_tiles; col++) {
       let row = -1;
       context.save();
       context.drawImage(
@@ -235,7 +249,7 @@ MyGame.graphics = (function (assets) {
     // draw top-right wall
     {
       let row = -1;
-      let col = 9;
+      let col = boardSize_tiles;
       context.save();
       context.drawImage(
         assets.wallTopRight, 
@@ -261,40 +275,6 @@ MyGame.graphics = (function (assets) {
       );
       context.restore();
     }
-
-
-    // drawRectangle({
-    //   fillStyle: "red",
-    //   strokeStyle: "black",
-    //   x: 0 - ((player.center.x - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
-    //   y: 0 - ((player.center.y - (canvasSize_w / 2)) * canvas.width / canvasSize_w),
-    //   width: tileSize_w * canvas.width / canvasSize_w,
-    //   height: tileSize_w * canvas.width / canvasSize_w
-    // });
-
-    // drawRectangle({
-    //   fillStyle: "black",
-    //   strokeStyle: "black",
-    //   x: canvas.width * diffX,
-    //   y: canvas.height * diffY,
-    //   width: WORLD_DIMENSIONS.width * canvas.width,
-    //   height: WORLD_DIMENSIONS.height * canvas.height,
-    // });
-    // for (
-    //   let i = canvas.width * diffX;
-    //   i < canvas.width + tileWidth &&
-    //   i < canvas.width * (WORLD_DIMENSIONS.width + diffX);
-    //   i += tileWidth
-    // ) {
-    //   for (
-    //     let j = canvas.height * diffY;
-    //     j < canvas.height + tileHeight &&
-    //     j < canvas.height * (WORLD_DIMENSIONS.height + diffY);
-    //     j += tileHeight
-    //   ) {
-    //     context.drawImage(assets.tile_aqua, i, j, tileWidth, tileHeight);
-    //   }
-    // }
   }
 
   // draw a circle
@@ -347,14 +327,11 @@ MyGame.graphics = (function (assets) {
     );
 
     context.closePath();
-
     context.fillStyle = "rgba(0, 0, 255, 1)";
     context.fill();
-
     context.lineWidth = 2;
     context.strokeStyle = "rgba(255, 0, 0, 1)";
     context.stroke();
-
     context.restore();
   }
 
@@ -377,19 +354,8 @@ MyGame.graphics = (function (assets) {
   // draw a texture from an image
   function drawTexture(image, center, rotation, size) {
     context.save();
-    // context.translate(center.x * canvas.width, center.y * canvas.height);
     context.rotate(rotation);
-    // context.translate(-center.x, -center.y);
-    // context.drawImage(
-    //   image,
-    //   center.x - (size.width * canvas.width) / 2,
-    //   center.y - (size.height * canvas.height) / 2,
-    //   size.width * canvas.width,
-    //   size.height * canvas.height);
-
     context.save();
-    // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
-    // context.translate(-center.x, -center.y);
     context.drawImage(
       image,
       0, 0, 256, 256,
