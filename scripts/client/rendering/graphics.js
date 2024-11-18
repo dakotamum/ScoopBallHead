@@ -26,9 +26,9 @@ MyGame.graphics = (function (assets) {
   function drawRectangle(spec) {
     context.save();
     context.fillStyle = spec.fillStyle;
-    // context.strokeStyle = spec.strokeStyle;
+    context.strokeStyle = spec.strokeStyle;
     context.fillRect(spec.x, spec.y, spec.width, spec.height);
-    // context.strokeRect(spec.x, spec.y, spec.width, spec.height);
+    context.strokeRect(spec.x, spec.y, spec.width, spec.height);
     context.restore();
   }
 
@@ -141,6 +141,19 @@ MyGame.graphics = (function (assets) {
           Math.ceil(tileSize_w * canvas.width / canvasSize_w),
           Math.ceil(tileSize_w * canvas.width / canvasSize_w)
         );
+
+      drawRectangle({
+        fillStyle: "rgba(0, 0, 0, 0.0)",
+        strokeStyle: "1px solid black",
+          x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+          height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+      });
+
+
+
+
         context.restore();
       }
     }
@@ -360,6 +373,14 @@ MyGame.graphics = (function (assets) {
       size * canvas.width / canvasSize_w,
       size * canvas.height / canvasSize_w
     );
+    drawRectangle({
+      fillStyle: "rgba(100, 0, 0, 0.5)",
+      strokeStyle: "1px solid black",
+      x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
+      y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
+      width: size * canvas.width / canvasSize_w,
+      height: size * canvas.height / canvasSize_w
+    });
     context.restore();
   }
 

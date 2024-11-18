@@ -56,7 +56,7 @@ MyGame.gameModel = (function (
       };
       socket.emit("input", message);
       messageHistory.enqueue(message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.up && directions.right) {
       myPlayer.angle = Dir.UP_RIGHT;
       let message = {
@@ -66,7 +66,7 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
@@ -77,7 +77,7 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
@@ -88,7 +88,7 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
     } else if (directions.up) {
       myPlayer.angle = Dir.UP;
@@ -99,7 +99,7 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
     } else if (directions.down) {
       myPlayer.angle = Dir.DOWN;
@@ -111,7 +111,7 @@ MyGame.gameModel = (function (
       };
       socket.emit("input", message);
       messageHistory.enqueue(message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.left) {
       myPlayer.angle = Dir.LEFT;
       let message = {
@@ -122,7 +122,7 @@ MyGame.gameModel = (function (
       };
       socket.emit("input", message);
       messageHistory.enqueue(message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.right) {
       myPlayer.angle = Dir.RIGHT;
       let message = {
@@ -132,7 +132,7 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message);
+      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
     }
     else
@@ -194,7 +194,7 @@ MyGame.gameModel = (function (
       while (!messageHistory.empty) {
         let message = messageHistory.dequeue();
         if (message.type === "move") {
-          myPlayer.move(message);
+          myPlayer.move(message, assets.tileMap);
         }
         memory.enqueue(message);
       }
