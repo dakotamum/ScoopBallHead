@@ -66,8 +66,10 @@ MyGame.objects.player = function (spec) {
     let yMin = 0.0;
     let yMax = 1.0;
 
-    if (Math.cos(angle) > 0) {
-      // check tile to the right to get new xmax if there's a wall
+    console.log(Math.cos(angle));
+
+    if (Math.cos(angle) > 0.001) {
+      console.log("right");
       if (tileMap[playerTileCenterY][playerTileCenterX + 1] === 1) {
         xMax = (playerTileCenterX + 1) * tileSize_w - rad;
       }
@@ -78,7 +80,8 @@ MyGame.objects.player = function (spec) {
         xMax =  playerTileCenterX_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)));
       }
     }
-    else if (Math.cos(angle) < 0) {
+    else if (Math.cos(angle) < -0.001) {
+      console.log("left");
       if (tileMap[playerTileCenterY][playerTileCenterX - 1] === 1) {
         xMin = (playerTileCenterX) * tileSize_w + rad;
       }
@@ -89,7 +92,7 @@ MyGame.objects.player = function (spec) {
         xMin = Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2))) + playerTileCenterX_w;
       }
     }
-    if (Math.sin(angle) > 0) {
+    if (Math.sin(angle) > 0.001) {
       if (tileMap[playerTileCenterY + 1][playerTileCenterX] === 1) {
         yMax = (playerTileCenterY + 1) * tileSize_w - rad;
       }
@@ -100,7 +103,7 @@ MyGame.objects.player = function (spec) {
         yMax = playerTileCenterY_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2)));
       }
     }
-    else if (Math.sin(angle) < 0) {
+    else if (Math.sin(angle) < -0.001) {
       if (tileMap[playerTileCenterY - 1][playerTileCenterX] === 1) {
         yMin = playerTileCenterY * tileSize_w + rad;
       }

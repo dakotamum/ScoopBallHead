@@ -120,7 +120,6 @@ MyGame.graphics = (function (assets) {
     });
   }
 
-
   // draw the game background
   function drawBackground(player) {
     // draw grass
@@ -142,18 +141,14 @@ MyGame.graphics = (function (assets) {
           Math.ceil(tileSize_w * canvas.width / canvasSize_w)
         );
 
-      drawRectangle({
-        fillStyle: "rgba(0, 0, 0, 0.0)",
-        strokeStyle: "1px solid black",
-          x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      });
-
-
-
-
+      // drawRectangle({
+      //   fillStyle: "rgba(0, 0, 0, 0.0)",
+      //   strokeStyle: "1px solid black",
+      //     x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+      //     y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+      //     width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+      //     height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+      // });
         context.restore();
       }
     }
@@ -172,91 +167,6 @@ MyGame.graphics = (function (assets) {
         context.restore();
       }
     }
-
-    // for (let col = 0; col < 3; col++) {
-    //   let row = 5;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallBottom, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
-
-    // // draw left wall
-    // for (let row = 0; row < boardSize_tiles; row++) {
-    //   let col = 0;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallLeft, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
-
-    // // draw right wall
-    // for (let row = 0; row < boardSize_tiles; row++) {
-    //   let col = boardSize_tiles;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallRight, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
-
-    // // draw top wall
-    // for (let col = 0; col < boardSize_tiles; col++) {
-    //   let row = 0;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallTop, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
-
-    // // draw top-right wall
-    // {
-    //   let row = 0;
-    //   let col = boardSize_tiles;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallTopRight, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
-
-    // // draw top-left wall
-    // {
-    //   let row = 0;
-    //   let col = 0;
-    //   context.save();
-    //   context.drawImage(
-    //     assets.wallTopLeft, 
-    //     Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-    //     Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-    //   );
-    //   context.restore();
-    // }
   }
 
   // draw a circle
@@ -351,6 +261,7 @@ MyGame.graphics = (function (assets) {
 
   // draw a frame of the player
   function drawPlayerFrame(image, frameNumber, center, rotation, size) {
+    let rendSize = size * 1.25;
     context.save();
     // context.translate(center.x * canvas.width, center.y * canvas.height);
     context.rotate(rotation);
@@ -368,19 +279,19 @@ MyGame.graphics = (function (assets) {
     context.drawImage(
       image, (frameNumber % 16) * 256,
       Math.floor(frameNumber / 16) * 256, 256, 256,
-      (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
-      (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
-      size * canvas.width / canvasSize_w,
-      size * canvas.height / canvasSize_w
+      (0.5 * canvas.width) - (rendSize * canvas.width / (2 * canvasSize_w)),
+      (0.5 * canvas.height) - (1.5 * rendSize * canvas.height / (2 * canvasSize_w)),
+      rendSize * canvas.width / canvasSize_w,
+      rendSize * canvas.height / canvasSize_w
     );
-    drawRectangle({
-      fillStyle: "rgba(100, 0, 0, 0.5)",
-      strokeStyle: "1px solid black",
-      x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
-      y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
-      width: size * canvas.width / canvasSize_w,
-      height: size * canvas.height / canvasSize_w
-    });
+    // drawRectangle({
+    //   fillStyle: "rgba(100, 0, 0, 0.5)",
+    //   strokeStyle: "1px solid black",
+    //   x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
+    //   y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
+    //   width: size * canvas.width / canvasSize_w,
+    //   height: size * canvas.height / canvasSize_w
+    // });
     context.restore();
   }
 
