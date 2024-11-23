@@ -9,7 +9,7 @@ let loadAssets = (function () {
     gameTitle: "assets/gameTitle.png",
     mainMenuMusic: "assets/mainMenuMusic.mp3",
     grass: "assets/grass.png",
-    wall: "assets/wall.png"
+    wall: "assets/wall.png",
   };
   let loadedAssets = 0;
   let assetCount = Object.keys(assetPaths).length - 1;
@@ -17,7 +17,7 @@ let loadAssets = (function () {
   function assetLoaded() {
     loadedAssets++;
     if (loadedAssets >= assetCount) {
-      MyGame.assets.tileMap = [
+      (MyGame.assets.tileMap = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1],
@@ -34,11 +34,11 @@ let loadAssets = (function () {
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      ],
-      MyGame.assets.tileSet = {
-        0: MyGame.assets.grass,
-        1: MyGame.assets.wall
-      };
+      ]),
+        (MyGame.assets.tileSet = {
+          0: MyGame.assets.grass,
+          1: MyGame.assets.wall,
+        });
 
       // all assets loaded, initialize the game
       MyGame.game.initialize();

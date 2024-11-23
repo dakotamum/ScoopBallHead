@@ -4,7 +4,7 @@ MyGame.screens["gameplay"] = (function (
   input,
   gameModel,
   graphics,
-  assets
+  assets,
 ) {
   "use-strict";
   let elapsedTime = 0;
@@ -63,10 +63,4 @@ MyGame.screens["gameplay"] = (function (
     initialize: initialize,
     run: run,
   };
-})(
-  MyGame.game,
-  MyGame.input,
-  MyGame.gameModel,
-  MyGame.graphics,
-  MyGame.assets
-);
+})(MyGame.game, MyGame.input, MyGame.gameModel, MyGame.graphics, MyGame.assets);

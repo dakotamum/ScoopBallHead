@@ -7,7 +7,7 @@ MyGame.gameModel = (function (
   particleManager,
   persistence,
   queue,
-  assets
+  assets,
 ) {
   "use strict";
   let internalUpdate = null;
@@ -134,9 +134,7 @@ MyGame.gameModel = (function (
       socket.emit("input", message);
       myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
-    }
-    else
-      myPlayer.moveTime = 0.0;
+    } else myPlayer.moveTime = 0.0;
   }
 
   // updates the game model depending on current internal state
@@ -180,8 +178,7 @@ MyGame.gameModel = (function (
         /*username: mySlinkeyDink.name*/
       },
     });
-    socket.on("connect-ack", function (data) {
-    });
+    socket.on("connect-ack", function (data) {});
 
     socket.on("update-self", function (data) {
       let done = false;
@@ -237,7 +234,7 @@ MyGame.gameModel = (function (
       },
       () => {
         directions.up = false;
-      }
+      },
     );
     keyboard.register(
       persistence.controls["down"],
@@ -246,7 +243,7 @@ MyGame.gameModel = (function (
       },
       () => {
         directions.down = false;
-      }
+      },
     );
     keyboard.register(
       persistence.controls["left"],
@@ -255,7 +252,7 @@ MyGame.gameModel = (function (
       },
       () => {
         directions.left = false;
-      }
+      },
     );
     keyboard.register(
       persistence.controls["right"],
@@ -264,7 +261,7 @@ MyGame.gameModel = (function (
       },
       () => {
         directions.right = false;
-      }
+      },
     );
   }
 
@@ -287,5 +284,5 @@ MyGame.gameModel = (function (
   MyGame.particleManager,
   MyGame.persistence,
   MyGame.queue,
-  MyGame.assets
+  MyGame.assets,
 );

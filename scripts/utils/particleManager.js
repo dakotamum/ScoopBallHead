@@ -5,20 +5,19 @@ MyGame.particleManager = (function (spec) {
   function rgbToObject(rgbString) {
     const matches = rgbString.match(/rgb\((\d+),(\d+),(\d+)\)/);
     if (!matches) {
-        return null; // Return null if the format doesn't match
+      return null; // Return null if the format doesn't match
     }
     return {
-        r: parseInt(matches[1], 10),
-        g: parseInt(matches[2], 10),
-        b: parseInt(matches[3], 10)
+      r: parseInt(matches[1], 10),
+      g: parseInt(matches[2], 10),
+      b: parseInt(matches[3], 10),
     };
-}
+  }
 
   let particle = function (particleSpec) {
     let startColor = { r: 255, g: 255, b: 255 }; // color a particle starts with
     let endColor = { r: 255, g: 255, b: 255 }; // color a particle will end with
-    if (particleSpec.color)
-    {
+    if (particleSpec.color) {
       startColor = rgbToObject(particleSpec.color);
       endColor = rgbToObject(particleSpec.color);
     }
@@ -52,11 +51,11 @@ MyGame.particleManager = (function (spec) {
         startColor,
         endColor,
         // (that.originalLifetime - that.lifetime) / that.originalLifetime
-        1
+        1,
       );
       that.colorString = `rgb(${that.color.r}, ${that.color.g}, ${
         that.color.b
-      // }, ${that.lifetime / that.originalLifetime})`;
+        // }, ${that.lifetime / that.originalLifetime})`;
       }, ${1})`;
     };
 
@@ -71,7 +70,7 @@ MyGame.particleManager = (function (spec) {
   function update(elapsedTime) {
     currentParticleInterval = Math.min(
       currentParticleInterval + elapsedTime,
-      particleRate
+      particleRate,
     );
     particles.forEach((particle) => particle.update(elapsedTime));
     particles = particles.filter((particle) => particle.lifetime > 0);
@@ -93,7 +92,7 @@ MyGame.particleManager = (function (spec) {
         radius: radius,
         speed: 0.00025,
         lifetime: Math.max(Random.nextGaussian(600, 100), 100),
-      })
+      }),
     );
     currentParticleInterval = 0;
   }
@@ -109,11 +108,11 @@ MyGame.particleManager = (function (spec) {
           speed: 0.00025,
           color: spec.fill,
           lifetime: Math.max(Random.nextGaussian(1000, 200), 100),
-        })
+        }),
       );
     }
   }
-  
+
   function makeNomNomParticles(spec) {
     for (let i = 0; i < 25; i++) {
       let radius = Math.max(Random.nextGaussian(0.0002, 0.0001), 0.0001);
@@ -125,7 +124,7 @@ MyGame.particleManager = (function (spec) {
           speed: 0.000075,
           color: spec.fill,
           lifetime: Math.max(Random.nextGaussian(200, 100), 100),
-        })
+        }),
       );
     }
   }

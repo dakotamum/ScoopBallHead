@@ -69,50 +69,152 @@ MyGame.objects.player = function (spec) {
     if (Math.cos(angle) > 0.001) {
       if (tileMap[playerTileCenterY][playerTileCenterX + 1] === 1) {
         xMax = (playerTileCenterX + 1) * tileSize_w - rad;
+      } else if (
+        Math.sqrt(
+          Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2) +
+            Math.pow(center.y - playerTileCenterY_w, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY - 1][playerTileCenterX + 1] === 1
+      ) {
+        xMax =
+          playerTileCenterX_w +
+          tileSize_w -
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) - Math.pow(center.y - playerTileCenterY_w, 2)
+            )
+          );
+      } else if (
+        Math.sqrt(
+          Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2) +
+            Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1
+      ) {
+        xMax =
+          playerTileCenterX_w +
+          tileSize_w -
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) -
+                Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)
+            )
+          );
       }
-      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((center.y - playerTileCenterY_w), 2)) < rad && tileMap[playerTileCenterY - 1][playerTileCenterX + 1] === 1) {
-        xMax =  playerTileCenterX_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(center.y - playerTileCenterY_w, 2)));
-      }
-      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((playerTileCenterY_w + tileSize_w - center.y), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1) {
-        xMax =  playerTileCenterX_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)));
-      }
-    }
-    else if (Math.cos(angle) < -0.001) {
+    } else if (Math.cos(angle) < -0.001) {
       if (tileMap[playerTileCenterY][playerTileCenterX - 1] === 1) {
-        xMin = (playerTileCenterX) * tileSize_w + rad;
-      }
-      else if (Math.sqrt(Math.pow((center.x - playerTileCenterX_w), 2) + Math.pow((center.y - playerTileCenterY_w), 2)) < rad && tileMap[playerTileCenterY - 1][playerTileCenterX - 1] === 1) {
-        xMin = Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(center.y - playerTileCenterY_w, 2))) + playerTileCenterX_w;
-      }
-      else if (Math.sqrt(Math.pow((center.x - playerTileCenterX_w), 2) + Math.pow((playerTileCenterY_w + tileSize_w - center.y), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX - 1] === 1) {
-        xMin = Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2))) + playerTileCenterX_w;
+        xMin = playerTileCenterX * tileSize_w + rad;
+      } else if (
+        Math.sqrt(
+          Math.pow(center.x - playerTileCenterX_w, 2) +
+            Math.pow(center.y - playerTileCenterY_w, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY - 1][playerTileCenterX - 1] === 1
+      ) {
+        xMin =
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) - Math.pow(center.y - playerTileCenterY_w, 2)
+            )
+          ) + playerTileCenterX_w;
+      } else if (
+        Math.sqrt(
+          Math.pow(center.x - playerTileCenterX_w, 2) +
+            Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY + 1][playerTileCenterX - 1] === 1
+      ) {
+        xMin =
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) -
+                Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)
+            )
+          ) + playerTileCenterX_w;
       }
     }
     if (Math.sin(angle) > 0.001) {
       if (tileMap[playerTileCenterY + 1][playerTileCenterX] === 1) {
         yMax = (playerTileCenterY + 1) * tileSize_w - rad;
+      } else if (
+        Math.sqrt(
+          Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2) +
+            Math.pow(center.x - playerTileCenterX_w, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY + 1][playerTileCenterX - 1] === 1
+      ) {
+        yMax =
+          playerTileCenterY_w +
+          tileSize_w -
+          Math.sqrt(
+            Math.abs(
+              Math.pow(playerTileCenterX_w - center.x, 2) - Math.pow(rad, 2)
+            )
+          );
+      } else if (
+        Math.sqrt(
+          Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2) +
+            Math.pow(playerTileCenterY_w + tileSize_w - center.y, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1
+      ) {
+        yMax =
+          playerTileCenterY_w +
+          tileSize_w -
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) -
+                Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2)
+            )
+          );
       }
-      else if (Math.sqrt(Math.pow(((playerTileCenterY_w + tileSize_w) - center.y), 2) + Math.pow((center.x - playerTileCenterX_w), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX - 1] === 1) {
-        yMax = playerTileCenterY_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(playerTileCenterX_w - center.x, 2) - Math.pow(rad, 2)));
-      }
-      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((playerTileCenterY_w + tileSize_w - center.y), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1) {
-        yMax = playerTileCenterY_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2)));
-      }
-    }
-    else if (Math.sin(angle) < -0.001) {
+    } else if (Math.sin(angle) < -0.001) {
       if (tileMap[playerTileCenterY - 1][playerTileCenterX] === 1) {
         yMin = playerTileCenterY * tileSize_w + rad;
-      }
-      else if (Math.sqrt(Math.pow((center.x - playerTileCenterX_w), 2) + Math.pow((center.y - playerTileCenterY_w), 2)) < rad && tileMap[playerTileCenterY - 1][playerTileCenterX - 1] === 1) {
-        yMin = Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(center.x - playerTileCenterX_w, 2))) + playerTileCenterY_w;
-      }
-      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((center.y - playerTileCenterY_w), 2)) < rad && tileMap[playerTileCenterY - 1][playerTileCenterX + 1] === 1) {
-        yMin = Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2))) + playerTileCenterY_w;
+      } else if (
+        Math.sqrt(
+          Math.pow(center.x - playerTileCenterX_w, 2) +
+            Math.pow(center.y - playerTileCenterY_w, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY - 1][playerTileCenterX - 1] === 1
+      ) {
+        yMin =
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) - Math.pow(center.x - playerTileCenterX_w, 2)
+            )
+          ) + playerTileCenterY_w;
+      } else if (
+        Math.sqrt(
+          Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2) +
+            Math.pow(center.y - playerTileCenterY_w, 2)
+        ) < rad &&
+        tileMap[playerTileCenterY - 1][playerTileCenterX + 1] === 1
+      ) {
+        yMin =
+          Math.sqrt(
+            Math.abs(
+              Math.pow(rad, 2) -
+                Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2)
+            )
+          ) + playerTileCenterY_w;
       }
     }
 
-    center.x = Math.max(xMin, Math.min(xMax, center.x + message.updateWindow * velocityConstant * Math.cos(angle)));
-    center.y = Math.max(yMin, Math.min(yMax, center.y + message.updateWindow * velocityConstant * Math.sin(angle)));
+    center.x = Math.max(
+      xMin,
+      Math.min(
+        xMax,
+        center.x + message.updateWindow * velocityConstant * Math.cos(angle)
+      )
+    );
+    center.y = Math.max(
+      yMin,
+      Math.min(
+        yMax,
+        center.y + message.updateWindow * velocityConstant * Math.sin(angle)
+      )
+    );
   }
 
   let api = {
@@ -143,7 +245,7 @@ MyGame.objects.player = function (spec) {
     },
     get moveDirectionToRender() {
       return moveDirectionToRender;
-    }
+    },
   };
   return api;
 };

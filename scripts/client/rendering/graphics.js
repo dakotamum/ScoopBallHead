@@ -32,7 +32,7 @@ MyGame.graphics = (function (assets) {
     context.restore();
   }
 
-    // draw a circle
+  // draw a circle
   function drawCircle(spec) {
     context.save();
     context.beginPath();
@@ -136,31 +136,53 @@ MyGame.graphics = (function (assets) {
   function drawBackground(player) {
     // draw grass
     let numTilesInScreen = Math.ceil(canvasSize_w / tileSize_w);
-    let colMin = Math.max(0, Math.floor((player.center.x - (canvasSize_w / 2)) / tileSize_w));
+    let colMin = Math.max(
+      0,
+      Math.floor((player.center.x - canvasSize_w / 2) / tileSize_w),
+    );
     let colMax = Math.min(boardSize_tiles, colMin + numTilesInScreen + 2);
 
-    let rowMin = Math.max(0, Math.floor((player.center.y - (canvasSize_w / 2)) / tileSize_w));
+    let rowMin = Math.max(
+      0,
+      Math.floor((player.center.y - canvasSize_w / 2) / tileSize_w),
+    );
     let rowMax = Math.min(boardSize_tiles, rowMin + numTilesInScreen + 2);
 
     for (let row = rowMin; row < rowMax; row++) {
       for (let col = colMin; col < colMax; col++) {
         context.save();
         context.drawImage(
-          assets.grass, 
-          Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+          assets.grass,
+          Math.ceil(
+            ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          Math.ceil(
+            ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+          Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
         );
 
-      drawRectangle({
-        fillStyle: "rgba(0, 0, 0, 0.0)",
-        strokeStyle: "",
-          x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      });
+        drawRectangle({
+          fillStyle: "rgba(0, 0, 0, 0.0)",
+          strokeStyle: "",
+          x: Math.ceil(
+            ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          y: Math.ceil(
+            ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          width: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+          height: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+        });
         context.restore();
       }
     }
@@ -170,11 +192,19 @@ MyGame.graphics = (function (assets) {
         if (assets.tileMap[row][col] === 0) continue;
         context.save();
         context.drawImage(
-          assets.tileSet[assets.tileMap[row][col]], 
-          Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+          assets.tileSet[assets.tileMap[row][col]],
+          Math.ceil(
+            ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          Math.ceil(
+            ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
+              canvas.width) /
+              canvasSize_w,
+          ),
+          Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+          Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
         );
         context.restore();
       }
@@ -187,10 +217,10 @@ MyGame.graphics = (function (assets) {
     context.beginPath();
     context.arc(
       spec.center.x * canvas.width,
-      spec.center.y * canvas.height - spec.radius * canvas.height / 2,
+      spec.center.y * canvas.height - (spec.radius * canvas.height) / 2,
       spec.radius * canvas.width,
       0,
-      2 * Math.PI
+      2 * Math.PI,
     );
     context.closePath();
     context.fillStyle = "magenta";
@@ -210,11 +240,14 @@ MyGame.graphics = (function (assets) {
     context.save();
     context.drawImage(
       image,
-      0, 0, 256, 256,
-      (center.x * canvas.width) - size * canvas.width / 2,
-      (center.y * canvas.height) - size * canvas.height / 2,
+      0,
+      0,
+      256,
+      256,
+      center.x * canvas.width - (size * canvas.width) / 2,
+      center.y * canvas.height - (size * canvas.height) / 2,
       size * canvas.width,
-      size * canvas.height
+      size * canvas.height,
     );
     context.restore();
   }
@@ -259,7 +292,7 @@ MyGame.graphics = (function (assets) {
       strokeStyle: "",
       x: 0.5 * canvas.width, // Center of canvas horizontally
       y: 0.5 * canvas.height, // Center of canvas vertically
-      radius: 0.5 * size * canvas.width / canvasSize_w // Radius proportional to canvas size
+      radius: (0.5 * size * canvas.width) / canvasSize_w, // Radius proportional to canvas size
     });
 
     context.restore();
@@ -277,7 +310,7 @@ MyGame.graphics = (function (assets) {
 
     context.translate(
       spec.position.x * canvas.width - width / 2,
-      spec.position.y * canvas.width
+      spec.position.y * canvas.width,
     );
 
     context.fillText(spec.text, spec.position.x, spec.position.y);

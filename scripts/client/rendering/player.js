@@ -20,7 +20,13 @@ MyGame.renderer.player = (function (graphics, assets) {
         row = 0;
         break;
     }
-    graphics.drawPlayerFrame(assets.coneman, row * 16 + Math.floor((spec.moveTime / 75 ) % 16), spec.center, 0, spec.radius);
+    graphics.drawPlayerFrame(
+      assets.coneman,
+      row * 16 + Math.floor((spec.moveTime / 75) % 16),
+      spec.center,
+      0,
+      spec.radius,
+    );
   }
 
   return {
