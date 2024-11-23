@@ -95,7 +95,7 @@ MyGame.objects.player = function (spec) {
       else if (Math.sqrt(Math.pow(((playerTileCenterY_w + tileSize_w) - center.y), 2) + Math.pow((center.x - playerTileCenterX_w), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX - 1] === 1) {
         yMax = playerTileCenterY_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(playerTileCenterX_w - center.x, 2) - Math.pow(rad, 2)));
       }
-      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1) {
+      else if (Math.sqrt(Math.pow((playerTileCenterX_w + tileSize_w - center.x), 2) + Math.pow((playerTileCenterY_w + tileSize_w - center.y), 2)) < rad && tileMap[playerTileCenterY + 1][playerTileCenterX + 1] === 1) {
         yMax = playerTileCenterY_w + tileSize_w - Math.sqrt(Math.abs(Math.pow(rad, 2) - Math.pow(playerTileCenterX_w + tileSize_w - center.x, 2)));
       }
     }
