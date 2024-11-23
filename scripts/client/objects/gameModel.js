@@ -163,9 +163,9 @@ MyGame.gameModel = (function (
     for (const id in playerOthers) {
       if (playerOthers.hasOwnProperty(id)) {
         // Check if the property is directly on the object
-        renderer.player.render(
-          playerOthers[id]
-        );
+        // renderer.player.render(
+        //   playerOthers[id]
+        // );
       }
     }
   };
@@ -180,7 +180,8 @@ MyGame.gameModel = (function (
         /*username: mySlinkeyDink.name*/
       },
     });
-    socket.on("connect-ack", function (data) {});
+    socket.on("connect-ack", function (data) {
+    });
 
     socket.on("update-self", function (data) {
       let done = false;

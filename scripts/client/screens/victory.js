@@ -3,7 +3,6 @@ MyGame.screens["victory"] = (function (game, persistence, gameModel) {
   "use-strict";
   let victoryNameInput = document.getElementById("victory-name");
   let victorySaveButton = document.getElementById("victory-submit");
-  let highScoreNotice = document.getElementById("victory-high-score-notice");
 
   // register event listers for buttons
   function initialize() {

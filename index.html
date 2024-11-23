@@ -27,57 +27,12 @@
         </div>
         <div class="screen-footer">
           <button id="new-game-button">New&nbsp;Game</button>
-          <button id="high-scores-button">High&nbsp;Scores</button>
           <button id="controls-button">Controls</button>
           <button id="about-button">About</button>
         </div>
       </div>
       <div id="gameplay" class="screen">
         <canvas id="game-canvas"></canvas>
-      </div>
-      <div id="high-scores" class="screen">
-        <div class="screen-header">
-          <h1>High&nbsp;Scores</h1>
-        </div>
-        <div class="screen-body">
-          <div class="high-scores-wrapper" id="high-scores-wrapper">
-            <table id="high-scores-table" class="high-scores-table">
-              <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Score</th>
-              </tr>
-              <tr id="rank-1">
-                <td>1</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr id="rank-2">
-                <td>2</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr id="rank-3">
-                <td>3</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr id="rank-4">
-                <td>4</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-              <tr id="rank-5">
-                <td>5</td>
-                <td>--</td>
-                <td>--</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="screen-footer">
-          <button id="high-scores-back">Back</button>
-        </div>
       </div>
       <div id="controls" class="screen">
         <div class="screen-header">
@@ -144,12 +99,6 @@
           <h3 id="l2-total" class="score-item"></h3>
           <h2>Total Score:</h2>
           <h1 id="total-score" style="text-decoration: underline"></h1>
-          <h2
-            id="victory-high-score-notice"
-            style="padding-top: 5%; padding-bottom: 5%"
-          >
-            You made the high-scores list!
-          </h2>
           <input type="text" id="victory-name" placeholder="Enter your name" />
           <button id="victory-submit" disabled>Submit</button>
         </div>
@@ -186,7 +135,6 @@
 
     <script src="scripts/client/screens/main-menu.js"></script>
     <script src="scripts/client/screens/about.js"></script>
-    <script src="scripts/client/screens/high-scores.js"></script>
     <script src="scripts/client/screens/controls.js"></script>
     <script src="scripts/client/screens/username.js"></script>
 

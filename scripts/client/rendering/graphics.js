@@ -27,8 +27,20 @@ MyGame.graphics = (function (assets) {
     context.save();
     context.fillStyle = spec.fillStyle;
     context.strokeStyle = spec.strokeStyle;
-    context.fillRect(spec.x, spec.y, spec.width, spec.height);
     context.strokeRect(spec.x, spec.y, spec.width, spec.height);
+    context.fillRect(spec.x, spec.y, spec.width, spec.height);
+    context.restore();
+  }
+
+    // draw a circle
+  function drawCircle(spec) {
+    context.save();
+    context.beginPath();
+    context.arc(spec.x, spec.y, spec.radius, 0, 2 * Math.PI);
+    context.fillStyle = spec.fillStyle;
+    context.strokeStyle = spec.strokeStyle;
+    context.fill();
+    context.stroke();
     context.restore();
   }
 
@@ -141,14 +153,14 @@ MyGame.graphics = (function (assets) {
           Math.ceil(tileSize_w * canvas.width / canvasSize_w)
         );
 
-      // drawRectangle({
-      //   fillStyle: "rgba(0, 0, 0, 0.0)",
-      //   strokeStyle: "1px solid black",
-      //     x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-      //     y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-      //     width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-      //     height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
-      // });
+      drawRectangle({
+        fillStyle: "rgba(0, 0, 0, 0.0)",
+        strokeStyle: "",
+          x: Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          y: Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
+          width: Math.ceil(tileSize_w * canvas.width / canvasSize_w),
+          height: Math.ceil(tileSize_w * canvas.width / canvasSize_w)
+      });
         context.restore();
       }
     }
@@ -160,9 +172,9 @@ MyGame.graphics = (function (assets) {
         context.drawImage(
           assets.tileSet[assets.tileMap[row][col]], 
           Math.ceil((((col * tileSize_w) - (player.center.x - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
-          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2)) - 0.25 * (tileSize_w)) * canvas.width / canvasSize_w)),
+          Math.ceil((((row * tileSize_w) - (player.center.y - (canvasSize_w / 2))) * canvas.width / canvasSize_w)),
           Math.ceil(tileSize_w * canvas.width / canvasSize_w),
-          Math.ceil(1.25 * tileSize_w * canvas.width / canvasSize_w)
+          Math.ceil(tileSize_w * canvas.width / canvasSize_w)
         );
         context.restore();
       }
@@ -188,58 +200,6 @@ MyGame.graphics = (function (assets) {
     if (spec.stroke && !invincible) context.strokeStyle = spec.stroke;
     context.fill();
     context.stroke();
-    context.restore();
-  }
-
-  function drawTriangle(tri, angle) {
-    context.save();
-    context.translate(
-      tri.center.x * canvas.width,
-      tri.center.y * canvas.height
-    );
-    context.rotate(angle);
-    context.translate(
-      -tri.center.x * canvas.width,
-      -tri.center.y * canvas.height
-    );
-
-    context.beginPath();
-
-    context.moveTo(
-      tri.center.x * canvas.width - canvas.width / 32,
-      tri.center.y * canvas.height - canvas.height / 32
-    );
-    context.lineTo(
-      tri.center.x * canvas.width + canvas.width / 32,
-      tri.center.y * canvas.height - canvas.height / 32
-    );
-    context.lineTo(
-      tri.center.x * canvas.width,
-      tri.center.y * canvas.height + canvas.height / 32
-    );
-
-    context.closePath();
-    context.fillStyle = "rgba(0, 0, 255, 1)";
-    context.fill();
-    context.lineWidth = 2;
-    context.strokeStyle = "rgba(255, 0, 0, 1)";
-    context.stroke();
-    context.restore();
-  }
-
-  function drawAbsoluteCircle(spec) {
-    context.save();
-    context.beginPath();
-    context.arc(spec.center.x, spec.center.y, spec.radius, 0, 2 * Math.PI);
-    context.closePath();
-    context.fillStyle = "magenta";
-    if (spec.fill) context.fillStyle = spec.fill;
-    context.fill();
-    // }
-    // if (spec.stroke) {
-    context.strokeStyle = "black";
-    context.stroke();
-    // }
     context.restore();
   }
 
@@ -276,22 +236,32 @@ MyGame.graphics = (function (assets) {
     context.save();
     // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
     // context.translate(-center.x, -center.y);
-    context.drawImage(
-      image, (frameNumber % 16) * 256,
-      Math.floor(frameNumber / 16) * 256, 256, 256,
-      (0.5 * canvas.width) - (rendSize * canvas.width / (2 * canvasSize_w)),
-      (0.5 * canvas.height) - (1.5 * rendSize * canvas.height / (2 * canvasSize_w)),
-      rendSize * canvas.width / canvasSize_w,
-      rendSize * canvas.height / canvasSize_w
-    );
+    // context.drawImage(
+    //   image, (frameNumber % 16) * 256,
+    //   Math.floor(frameNumber / 16) * 256, 256, 256,
+    //   (0.5 * canvas.width) - (rendSize * canvas.width / (2 * canvasSize_w)),
+    //   (0.5 * canvas.height) - (1.5 * rendSize * canvas.height / (2 * canvasSize_w)),
+    //   rendSize * canvas.width / canvasSize_w,
+    //   rendSize * canvas.height / canvasSize_w
+    // );
+
     // drawRectangle({
-    //   fillStyle: "rgba(100, 0, 0, 0.5)",
-    //   strokeStyle: "1px solid black",
+    //   fillStyle: "yellow",
+    //   strokeStyle: "",
     //   x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
     //   y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
     //   width: size * canvas.width / canvasSize_w,
     //   height: size * canvas.height / canvasSize_w
     // });
+
+    drawCircle({
+      fillStyle: "#6f00ff",
+      strokeStyle: "",
+      x: 0.5 * canvas.width, // Center of canvas horizontally
+      y: 0.5 * canvas.height, // Center of canvas vertically
+      radius: 0.5 * size * canvas.width / canvasSize_w // Radius proportional to canvas size
+    });
+
     context.restore();
   }
 
@@ -342,14 +312,13 @@ MyGame.graphics = (function (assets) {
     drawBackground: drawBackground,
     drawHead: drawHead,
     drawRectangle: drawRectangle,
+    drawCircle: drawCircle,
     drawTexture: drawTexture,
     drawPlayerFrame: drawPlayerFrame,
     drawText: drawText,
     drawRelativeText: drawRelativeText,
     drawScores: drawScores,
     drawMyGameOverPanel: drawMyGameOverPanel,
-    drawAbsoluteCircle: drawAbsoluteCircle,
-    drawTriangle: drawTriangle,
   };
 
   return api;

@@ -151,20 +151,3 @@ canvas {
   /* align-items: left; */
   text-align: left;
 }
-
-.high-scores-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
-.high-scores-table {
-  background-color: white;
-  color: black;
-  height: 100%;
-  width: 75%;
-  align-items: center;
-  font-size: 150%;
-}

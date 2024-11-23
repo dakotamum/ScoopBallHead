@@ -10,11 +10,6 @@ MyGame.screens["main-menu"] = (function (game, assets) {
         game.showScreen("username");
       });
     document
-      .getElementById("high-scores-button")
-      .addEventListener("click", function () {
-        game.showScreen("high-scores");
-      });
-    document
       .getElementById("controls-button")
       .addEventListener("click", function () {
         game.showScreen("controls");

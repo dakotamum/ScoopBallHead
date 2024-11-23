@@ -66,10 +66,7 @@ MyGame.objects.player = function (spec) {
     let yMin = 0.0;
     let yMax = 1.0;
 
-    console.log(Math.cos(angle));
-
     if (Math.cos(angle) > 0.001) {
-      console.log("right");
       if (tileMap[playerTileCenterY][playerTileCenterX + 1] === 1) {
         xMax = (playerTileCenterX + 1) * tileSize_w - rad;
       }
@@ -81,7 +78,6 @@ MyGame.objects.player = function (spec) {
       }
     }
     else if (Math.cos(angle) < -0.001) {
-      console.log("left");
       if (tileMap[playerTileCenterY][playerTileCenterX - 1] === 1) {
         xMin = (playerTileCenterX) * tileSize_w + rad;
       }

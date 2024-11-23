@@ -6,11 +6,11 @@ MyGame.screens["username"] = (function (game, persistence) {
   function initialize() {
     document.getElementById("username-input").value = persistence.username
     document.getElementById("username-back").addEventListener("click", function () {
-      game.showScreen("main-menu")
+      game.showScreen("main-menu");
     });
     document.getElementById("enter").addEventListener("click", function () {
-      persistence.setUsername(document.getElementById("username-input").value)
-      game.showScreen("gameplay")
+      persistence.setUsername(document.getElementById("username-input").value);
+      game.showScreen("gameplay");
     });
   }
 
