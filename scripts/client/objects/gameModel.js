@@ -66,8 +66,8 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
+      myPlayer.move(message, assets.tileMap)
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
       let message = {
@@ -77,8 +77,8 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
       let message = {
@@ -88,8 +88,8 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.up) {
       myPlayer.angle = Dir.UP;
       let message = {
@@ -99,8 +99,8 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.down) {
       myPlayer.angle = Dir.DOWN;
       let message = {
@@ -132,8 +132,8 @@ MyGame.gameModel = (function (
         id: messageId++,
       };
       socket.emit("input", message);
-      myPlayer.move(message, assets.tileMap);
       messageHistory.enqueue(message);
+      myPlayer.move(message, assets.tileMap);
     } else myPlayer.moveTime = 0.0;
   }
 
@@ -157,15 +157,15 @@ MyGame.gameModel = (function (
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
     MyGame.graphics.drawBackground(myPlayer);
-    renderer.player.render(myPlayer);
     for (const id in playerOthers) {
       if (playerOthers.hasOwnProperty(id)) {
         // Check if the property is directly on the object
-        // renderer.player.render(
-        //   playerOthers[id]
-        // );
+        renderer.player.renderOtherPlayer(myPlayer, 
+          playerOthers[id]
+        );
       }
     }
+    renderer.player.renderMyPlayer(myPlayer);
   };
 
   // setup the game model for a new game
@@ -181,6 +181,9 @@ MyGame.gameModel = (function (
     socket.on("connect-ack", function (data) {});
 
     socket.on("update-self", function (data) {
+      myPlayer.center.x = data.player.center.x;
+      myPlayer.center.y = data.player.center.y;
+
       let done = false;
       while (!done && !messageHistory.empty) {
         if (messageHistory.front.id === data.lastMessageId) {

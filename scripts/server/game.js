@@ -46,7 +46,7 @@ function updateClients(elapsedTime) {
       }
       // for (let id in playerOthers) {
       //   playerOthers[id].move(elapsedTime);
-      // }}
+      // }
     }
   }
   for (let clientId in activeClients) {

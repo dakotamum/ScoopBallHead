@@ -3,10 +3,9 @@ MyGame.renderer.player = (function (graphics, assets) {
   "use-strict";
 
   // render the player
-  function render(spec) {
-    // graphics.drawHead(spec);
+  function renderMyPlayer(myPlayer) {
     let row;
-    switch (spec.moveDirectionToRender) {
+    switch (myPlayer.moveDirectionToRender) {
       case "up":
         row = 3;
         break;
@@ -20,16 +19,30 @@ MyGame.renderer.player = (function (graphics, assets) {
         row = 0;
         break;
     }
-    graphics.drawPlayerFrame(
-      assets.coneman,
-      row * 16 + Math.floor((spec.moveTime / 75) % 16),
-      spec.center,
-      0,
-      spec.radius,
-    );
+    graphics.drawMyPlayer(myPlayer);
+  }
+
+  function renderOtherPlayer(myPlayer, otherPlayer) {
+    // let row;
+    // switch (spec.moveDirectionToRender) {
+    //   case "up":
+    //     row = 3;
+    //     break;
+    //   case "down":
+    //     row = 2;
+    //     break;
+    //   case "left":
+    //     row = 1;
+    //     break;
+    //   case "right":
+    //     row = 0;
+    //     break;
+    // }
+    graphics.drawOtherPlayer(myPlayer, otherPlayer);
   }
 
   return {
-    render: render,
+    renderMyPlayer: renderMyPlayer,
+    renderOtherPlayer: renderOtherPlayer
   };
 })(MyGame.graphics, MyGame.assets);
