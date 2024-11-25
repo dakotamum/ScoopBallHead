@@ -297,8 +297,8 @@ MyGame.graphics = (function (assets) {
   function drawOtherPlayer(myPlayer, otherPlayer) {
     // let rendSize = size * 1.25;
 
-    let relX = (otherPlayer.center.x - myPlayer.center.x) / canvasSize_w;
-    let relY = (otherPlayer.center.y - myPlayer.center.y) / canvasSize_w;
+    let relX = (otherPlayer.state.center.x - myPlayer.center.x) / canvasSize_w;
+    let relY = (otherPlayer.state.center.y - myPlayer.center.y) / canvasSize_w;
 
     context.save();
     // context.translate(center.x * canvas.width, center.y * canvas.height);

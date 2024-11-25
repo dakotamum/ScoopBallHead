@@ -217,8 +217,11 @@ MyGame.objects.player = function (spec) {
     );
   }
 
+  function update(elapsedTime) {}
+
   let api = {
     move: move,
+    update: update,
     get moveTime() {
       return moveTime;
     },

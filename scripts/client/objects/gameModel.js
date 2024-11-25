@@ -148,7 +148,12 @@ MyGame.gameModel = (function (
   }
 
   // internal state for updating game while actively playing
-  let updateMyGame = function (elapsedTime) {};
+  let updateMyGame = function (elapsedTime) {
+    myPlayer.update(elapsedTime)
+    for (let id in playerOthers) {
+        playerOthers[id].update(elapsedTime);
+    }  
+  };
 
   function disconnect() {
     socket.disconnect();
@@ -205,11 +210,13 @@ MyGame.gameModel = (function (
     socket.on("update-other", function (data) {
       if (playerOthers.hasOwnProperty(data.id)) {
         let otherPlayer = playerOthers[data.id];
-        otherPlayer.center = data.player.center;
-        // otherPlayer.goal = {
-        //   dinks: data.slinkyDink.dinks,
-        //   updateWindow: data.updateWindow,
-        // };
+        otherPlayer.goal = {
+          center: {
+            x: data.player.center.x,
+            y: data.player.center.y
+          },
+          updateWindow: data.updateWindow,
+        };
       }
     });
 
