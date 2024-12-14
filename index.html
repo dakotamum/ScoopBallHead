@@ -12,60 +12,242 @@
         id="main-menu"
         class="screen"
         style="
-          background-image: url(&quot;assets/MainMenuBackground.png&quot;);
+          background-color: blueviolet;
           background-size: cover;
           background-position: center;
+          font-size: 10vh;
+          color: white;
         "
       >
-        <div class="screen-header"></div>
-        <div class="screen-body">
-          <img
-            src="assets/gameTitle.png"
-            alt="Scoop Ball Head"
-            style="width: 75%; top: 0"
-          />
-        </div>
-        <div class="screen-footer">
-          <button id="new-game-button">New&nbsp;Game</button>
-          <button id="controls-button">Controls</button>
-          <button id="about-button">About</button>
+        <div style="
+          display: grid;
+          grid-template-rows: auto 1fr;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2vw;
+        ">
+            <div style="grid-column: span 3;
+            font-size: 10vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            text-align: center;
+            ">
+              Scoop Ball Head
+            </div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <button id="new-game-button">New&nbsp;Game</button>
+            </div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <button id="controls-button">Controls</button>
+            </div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <button id="about-button">About</button>
+            </div>
         </div>
       </div>
+
       <div id="gameplay" class="screen">
         <canvas id="game-canvas"></canvas>
       </div>
-      <div id="controls" class="screen">
-        <div class="screen-header">
-          <h1>Controls</h1>
+
+      <div id="controls" class="screen"
+        style="
+          background-color: blueviolet;
+          background-size: cover;
+          background-position: center;
+          font-size: 10vh;
+          color: white;
+        "
+      >
+        <div style="
+          display: grid;
+          grid-template-rows: auto auto auto auto auto auto;
+          grid-template-columns: 1fr 1fr;
+          gap: 2vw;
+        ">
+            <div style="grid-column: span 2;
+            font-size: 8vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            text-align: center;
+            ">
+              Controls
+            </div>
+            <div style=" 
+              font-size: 3vw;
+              text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+              white-space: nowrap; 
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              "
+            >Up:</div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+              <button id="up"></button>
+            </div>
+            <div style=" 
+              font-size: 3vw;
+              text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+              white-space: nowrap; 
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              ">Down:</div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+            <button id="down"></button>
+            </div>
+            <div style=" 
+              font-size: 3vw;
+              text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+              white-space: nowrap; 
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              ">Left:</div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+            <button id="left"></button>
+            </div>
+            <div style=" 
+              font-size: 3vw;
+              text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+              white-space: nowrap; 
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              ">Right:</div>
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;">
+            <button id="right"></button>
+            </div>
+            <div style="
+              grid-column: span 2;
+              display: flex;
+              align-items: center;
+              justify-content: center;"
+            >
+            <button id="controls-back">Back</button>
+            </div>
         </div>
-        <div class="screen-body">
-          <h2>Up:</h2>
-          <button id="up"></button>
-          <h2>Down:</h2>
-          <button id="down"></button>
-          <h2>Left:</h2>
-          <button id="left"></button>
-          <h2>Right:</h2>
-          <button id="right"></button>
-        </div>
-        <div class="screen-footer">
-          <button id="controls-back">Back</button>
+         
+      </div>
+
+
+
+
+
+      <div id="username" class="screen"
+        style="
+          background-color: blueviolet;
+          background-size: cover;
+          background-position: center;
+          font-size: 10vh;
+          color: white;
+        "
+      >
+        <div style="
+          display: grid;
+          grid-template-rows: auto auto auto auto;
+          grid-template-columns: 1fr 1fr;
+          gap: 2vw;
+        ">
+            <div style="grid-column: span 2;
+            font-size: 8vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            text-align: center;
+            ">
+              Game Setup
+            </div>
+            <div style="grid-column: span 2;
+            font-size: 3vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            ">
+              Pick a Player Name
+            </div>
+            <div style="grid-column: span 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;">
+            <input id="username-input" type="text" />
+            </div>
+            <button id="username-back">Back</button>
+            <button id="enter">Start!</button>
         </div>
       </div>
-      <div id="username" class="screen">
-        <div class="screen-header">
-          <h1>Tutorial</h1>
-        </div>
-        <div class="screen-body">
-          <h1 style="margin-top: 3px">Pick a Player Name</h1>
-          <input id="username-input" type="text" />
-          <button id="enter">Start!</button>
-        </div>
-        <div class="screen-footer">
-          <button id="username-back">Back</button>
+
+
+
+      <div id="about" class="screen"
+        style="
+          background-color: blueviolet;
+          background-size: cover;
+          background-position: center;
+          font-size: 10vh;
+          color: white;
+        "
+      >
+        <div style="
+          display: grid;
+          grid-template-rows: auto auto auto;
+          grid-template-columns: 1fr;
+          gap: 2vw;
+        ">
+            <div style="grid-column: span 1;
+            font-size: 8vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            text-align: center;
+            ">
+              About
+            </div>
+            <div style="grid-column: span 1;
+            font-size: 3vw;
+            text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+            white-space: nowrap; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            ">
+              Developed by Dakota Mumford
+            </div>
+            <button id="about-back">Back</button>
         </div>
       </div>
-      <div id="about" class="screen">
+
+
+
+
+
+
+
+
+
+
+      <!-- <div id="about" class="screen">
         <div class="screen-header">
           <h1>About</h1>
         </div>
@@ -75,7 +257,15 @@
         <div class="screen-footer">
           <button id="about-back">Back</button>
         </div>
-      </div>
+      </div> -->
+
+
+
+
+
+
+
+
       <div id="victory" class="screen">
         <div class="screen-header">
           <h1>Victory</h1>

@@ -57,10 +57,34 @@ MyGame.objects.remotePlayer = function (spec) {
     // protect against divide by 0 before the first update from the server has been given
     if (goal.updateWindow === 0) return;
 
-    let updateFraction = elapsedTime / goal.updateWindow;
+    let updateFraction = Math.min(elapsedTime / goal.updateWindow, 1.0);
+    let preUpdate = structuredClone(state);
     if (updateFraction > 0) {
         state.center.x -= (state.center.x - goal.center.x) * updateFraction;
         state.center.y -= (state.center.y - goal.center.y) * updateFraction;
+
+          // Calculate the differences
+      let diffX = Math.abs(preUpdate.center.x - state.center.x);
+      let diffY = Math.abs(preUpdate.center.y - state.center.y);
+
+      if (((diffX > 0.0001 || diffY > 0.0001) && state.center.x > goal.center.x))
+      {
+        console.log("******** HOLY SHIZ WE PASSED THE GOAL");
+        console.log("state center before update: " + preUpdate.center.x, preUpdate.center.y);
+        console.log("goal center: " + goal.center.x, goal.center.y);
+        console.log("updateFraction: " + updateFraction);
+        console.log("updated state center: " + state.center.x, state.center.y);
+      }
+
+      // Log only if differences are greater than 0.0001
+      if ((diffX > 0.0001 || diffY > 0.0001) && state.center.x - preUpdate.center.x < 0)
+        { 
+          console.log("*************** went backwards");
+          console.log("state center before update: " + preUpdate.center.x, preUpdate.center.y);
+          console.log("goal center: " + goal.center.x, goal.center.y);
+          console.log("updateFraction: " + updateFraction);
+          console.log("updated state center: " + state.center.x, state.center.y);
+      }
     }
   }
 

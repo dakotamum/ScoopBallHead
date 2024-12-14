@@ -10,28 +10,32 @@ let mimeTypes = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".mp3": "audio/mpeg3",
-  ".map": "application/octet-stream", // Chrome is requesting socket.io;'s source map file
+  ".ttf": "font/ttf",
+  ".map": "application/octet-stream", // Chrome is requesting socket.io's source map file
 };
 
 function handleRequest(request, response) {
   let lookup = request.url === "/" ? "/index.html" : decodeURI(request.url);
-  let file = lookup.substring(1, lookup.length);
+  let file = path.join(__dirname, lookup); // Use absolute path
 
   fs.access(file, fs.constants.R_OK, function (err) {
     if (!err) {
       fs.readFile(file, function (error, data) {
         if (error) {
-          response.writeHead(500);
+          response.writeHead(500, { "Content-Type": "text/plain" });
           response.end("Server Error!");
         } else {
-          let headers = { "Content-type": mimeTypes[path.extname(lookup)] };
+          let headers = {
+            "Content-Type": mimeTypes[path.extname(lookup)] || "application/octet-stream",
+            "Access-Control-Allow-Origin": "*", // Optional: enable CORS
+          };
           response.writeHead(200, headers);
           response.end(data);
         }
       });
     } else {
-      response.writeHead(404);
-      response.end();
+      response.writeHead(404, { "Content-Type": "text/plain" });
+      response.end(`File not found: ${lookup}`);
     }
   });
 }

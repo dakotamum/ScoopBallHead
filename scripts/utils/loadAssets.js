@@ -7,12 +7,11 @@ let loadAssets = (function () {
     player: "assets/player.png",
     coneman: "assets/coneman.png",
     gameTitle: "assets/gameTitle.png",
-    mainMenuMusic: "assets/mainMenuMusic.mp3",
     grass: "assets/grass.png",
     wall: "assets/wall.png",
   };
   let loadedAssets = 0;
-  let assetCount = Object.keys(assetPaths).length - 1;
+  let assetCount = Object.keys(assetPaths).length;
 
   function assetLoaded() {
     loadedAssets++;
@@ -57,5 +56,4 @@ let loadAssets = (function () {
       MyGame.assets[key].canplay = assetLoaded;
     }
   }
-  // MyGame.game.initialize();
 })();

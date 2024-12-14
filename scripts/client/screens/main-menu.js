@@ -21,8 +21,6 @@ MyGame.screens["main-menu"] = (function (game, assets) {
       });
   }
   function run() {
-    assets.mainMenuMusic.loop = true;
-    assets.mainMenuMusic.play();
   }
   return {
     initialize: initialize,

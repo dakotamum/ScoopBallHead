@@ -51,8 +51,6 @@ MyGame.screens["gameplay"] = (function (
 
   // setup game model and start game loop
   function run() {
-    assets.mainMenuMusic.pause();
-    assets.mainMenuMusic.currentTime = 0;
     previousTime = performance.now();
     cancelNextRequest = false;
     gameModel.setupMyGame();
