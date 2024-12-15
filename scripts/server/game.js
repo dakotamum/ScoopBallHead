@@ -8,7 +8,7 @@
 let present = require("present");
 let Player = require("./player");
 
-const UPDATE_RATE_MS = 50;
+const UPDATE_RATE_MS = 100;
 let quit = false;
 let activeClients = {};
 let inputQueue = [];
