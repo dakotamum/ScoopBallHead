@@ -26,7 +26,8 @@ function handleRequest(request, response) {
           response.end("Server Error!");
         } else {
           let headers = {
-            "Content-Type": mimeTypes[path.extname(lookup)] || "application/octet-stream",
+            "Content-Type":
+              mimeTypes[path.extname(lookup)] || "application/octet-stream",
             "Access-Control-Allow-Origin": "*", // Optional: enable CORS
           };
           response.writeHead(200, headers);

@@ -20,8 +20,7 @@ MyGame.screens["main-menu"] = (function (game, assets) {
         game.showScreen("about");
       });
   }
-  function run() {
-  }
+  function run() {}
   return {
     initialize: initialize,
     run: run,

@@ -6,16 +6,16 @@ MyGame.objects.remotePlayer = function (spec) {
   let state = {
     center: {
       x: 0.5,
-      y: 0.5
-    }
-  }
+      y: 0.5,
+    },
+  };
   let goal = {
     center: {
       x: 0.5,
-      y: 0.5
+      y: 0.5,
     },
-    updateWindow: 0
-  }
+    updateWindow: 0,
+  };
 
   let radius = 0.05;
   let fill = "#a065cd";

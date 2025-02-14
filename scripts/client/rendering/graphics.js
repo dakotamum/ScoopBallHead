@@ -335,8 +335,8 @@ MyGame.graphics = (function (assets) {
     drawCircle({
       fillStyle: "#ff00ff",
       strokeStyle: "",
-      x: (relX + 0.5) * canvas.width, 
-      y: (relY + 0.5) * canvas.width, 
+      x: (relX + 0.5) * canvas.width,
+      y: (relY + 0.5) * canvas.width,
       radius: (0.5 * otherPlayer.radius * canvas.width) / canvasSize_w, // Radius proportional to canvas size
     });
 

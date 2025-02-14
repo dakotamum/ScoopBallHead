@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon ./server.js localhost 3000"
+    "dev": "nodemon ./server.js localhost 3000",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "nodemon": "^3.1.0",
     "present": "^1.0.0",
     "socket.io": "4.7.*"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.1"
   }
 }

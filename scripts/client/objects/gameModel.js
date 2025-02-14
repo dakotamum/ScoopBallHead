@@ -67,7 +67,7 @@ MyGame.gameModel = (function (
       };
       socket.emit("input", message);
       messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap)
+      myPlayer.move(message, assets.tileMap);
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
       let message = {
@@ -149,10 +149,10 @@ MyGame.gameModel = (function (
 
   // internal state for updating game while actively playing
   let updateMyGame = function (elapsedTime) {
-    myPlayer.update(elapsedTime)
+    myPlayer.update(elapsedTime);
     for (let id in playerOthers) {
-        playerOthers[id].update(elapsedTime);
-    }  
+      playerOthers[id].update(elapsedTime);
+    }
   };
 
   function disconnect() {
@@ -165,9 +165,7 @@ MyGame.gameModel = (function (
     for (const id in playerOthers) {
       if (playerOthers.hasOwnProperty(id)) {
         // Check if the property is directly on the object
-        renderer.player.renderOtherPlayer(myPlayer, 
-          playerOthers[id]
-        );
+        renderer.player.renderOtherPlayer(myPlayer, playerOthers[id]);
       }
     }
     renderer.player.renderMyPlayer(myPlayer);
@@ -213,7 +211,7 @@ MyGame.gameModel = (function (
         otherPlayer.goal = {
           center: {
             x: data.player.center.x,
-            y: data.player.center.y
+            y: data.player.center.y,
           },
           updateWindow: data.updateWindow,
         };

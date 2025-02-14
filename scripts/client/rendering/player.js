@@ -43,6 +43,6 @@ MyGame.renderer.player = (function (graphics, assets) {
 
   return {
     renderMyPlayer: renderMyPlayer,
-    renderOtherPlayer: renderOtherPlayer
+    renderOtherPlayer: renderOtherPlayer,
   };
 })(MyGame.graphics, MyGame.assets);
