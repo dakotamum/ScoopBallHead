@@ -46,95 +46,54 @@ MyGame.gameModel = (function (
   // processes keyboard input
   function processInput(elapsedTime) {
     keyboard.update(elapsedTime);
+    let direction = "";
+    let isMoving = false;
     if (directions.up && directions.left) {
       myPlayer.angle = Dir.UP_LEFT;
-      let message = {
-        type: "move",
-        direction: "up-left",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "up-left";
+      isMoving = true;
     } else if (directions.up && directions.right) {
       myPlayer.angle = Dir.UP_RIGHT;
-      let message = {
-        type: "move",
-        direction: "up-right",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "up-right";
+      isMoving = true;
     } else if (directions.down && directions.left) {
       myPlayer.angle = Dir.DOWN_LEFT;
-      let message = {
-        type: "move",
-        direction: "down-left",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "down-left";
+      isMoving = true;
     } else if (directions.down && directions.right) {
       myPlayer.angle = Dir.DOWN_RIGHT;
-      let message = {
-        type: "move",
-        direction: "down-right",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "down-right";
+      isMoving = true;
     } else if (directions.up) {
       myPlayer.angle = Dir.UP;
-      let message = {
-        type: "move",
-        direction: "up",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "up";
+      isMoving = true;
     } else if (directions.down) {
       myPlayer.angle = Dir.DOWN;
-      let message = {
-        type: "move",
-        direction: "down",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "down";
+      isMoving = true;
     } else if (directions.left) {
       myPlayer.angle = Dir.LEFT;
-      let message = {
-        type: "move",
-        direction: "left",
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+      direction = "left";
+      isMoving = true;
     } else if (directions.right) {
       myPlayer.angle = Dir.RIGHT;
+      direction = "right";
+      isMoving = true;
+    } else {
+      myPlayer.moveTime = 0.0;
+    }
+    if (isMoving) {
       let message = {
         type: "move",
-        direction: "right",
+        direction: direction,
         updateWindow: elapsedTime,
         id: messageId++,
       };
       socket.emit("input", message);
       messageHistory.enqueue(message);
       myPlayer.move(message, assets.tileMap);
-    } else myPlayer.moveTime = 0.0;
+    }
   }
 
   // updates the game model depending on current internal state
