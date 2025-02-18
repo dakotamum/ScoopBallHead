@@ -1,6 +1,6 @@
 MyGame.objects.remotePlayer = function (spec) {
   "use strict";
-  // constants
+
   const velocityConstant = 0.000175;
 
   let state = {
@@ -22,11 +22,7 @@ MyGame.objects.remotePlayer = function (spec) {
   let stroke = "#ddf8d0";
 
   function update(elapsedTime) {
-    // protect against divide by 0 before the first update from the server has been given
-    // if (goal.updateWindow === 0) return;
-
     let goalTime = Math.min(elapsedTime, goal.updateWindow);
-
     if (goalTime > 0) {
       let updateFraction = elapsedTime / goal.updateWindow;
       state.center.x -= (state.center.x - goal.center.x) * updateFraction;
@@ -35,7 +31,6 @@ MyGame.objects.remotePlayer = function (spec) {
   }
 
   let api = {
-    // move: move,
     update: update,
     get state() {
       return state;

@@ -1,8 +1,7 @@
-// Controls screen
 MyGame.screens["controls"] = (function (game, persistence) {
   "use-strict";
 
-  // register event listener for back button
+  // event listener for back button
   function initialize() {
     document
       .getElementById("controls-back")

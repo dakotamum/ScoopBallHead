@@ -44,7 +44,7 @@ MyGame.gameModel = (function (
   let renderMyGameOver = function (elapsedTime) {};
 
   // processes keyboard input
-  function processInput(elapsedTime) {
+  function processKeyboardInput(elapsedTime) {
     keyboard.update(elapsedTime);
     let direction = "";
     let isMoving = false;
@@ -237,7 +237,7 @@ MyGame.gameModel = (function (
 
   return {
     setupMyGame: setupMyGame,
-    processInput: processInput,
+    processKeyboardInput: processKeyboardInput,
     update: update,
     render: render,
     disconnect: disconnect,

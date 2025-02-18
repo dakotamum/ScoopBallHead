@@ -1,4 +1,3 @@
-// About screen
 MyGame.screens["about"] = (function (game) {
   "use-strict";
 

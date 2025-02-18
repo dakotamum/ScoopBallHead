@@ -4,7 +4,6 @@ MyGame.screens["victory"] = (function (game, persistence, gameModel) {
   let victoryNameInput = document.getElementById("victory-name");
   let victorySaveButton = document.getElementById("victory-submit");
 
-  // register event listers for buttons
   function initialize() {
     document
       .getElementById("victory-back")

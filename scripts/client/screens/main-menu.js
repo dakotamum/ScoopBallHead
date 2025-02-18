@@ -2,7 +2,6 @@
 MyGame.screens["main-menu"] = (function (game, assets) {
   "use-strict";
 
-  // register event listeners for buttons
   function initialize() {
     document
       .getElementById("new-game-button")

@@ -12,34 +12,29 @@ MyGame.screens["gameplay"] = (function (
   let myKeyboard = input.Keyboard();
   let cancelNextRequest = false;
 
-  // process input from keyboard
-  function processInput(elapsedTime) {
+  function processKeyboardInput(elapsedTime) {
     myKeyboard.update(elapsedTime);
-    gameModel.processInput(elapsedTime);
+    gameModel.processKeyboardInput(elapsedTime);
   }
 
-  // update game model
   function update(elapsedTime) {
     gameModel.update(elapsedTime);
   }
 
-  // render game model
   function render(elapsedTime) {
     graphics.clear();
     gameModel.render(elapsedTime);
   }
 
-  // main game loop
   function gameLoop(time) {
     elapsedTime = time - previousTime;
     previousTime = time;
-    processInput(elapsedTime);
+    processKeyboardInput(elapsedTime);
     update(elapsedTime);
     render(elapsedTime);
     if (!cancelNextRequest) requestAnimationFrame(gameLoop);
   }
 
-  // register event listeners for buttons
   function initialize() {
     myKeyboard.register("Escape", function () {
       cancelNextRequest = true;
@@ -49,7 +44,6 @@ MyGame.screens["gameplay"] = (function (
     });
   }
 
-  // setup game model and start game loop
   function run() {
     previousTime = performance.now();
     cancelNextRequest = false;

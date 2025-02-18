@@ -13,7 +13,7 @@ let quit = false;
 let activeClients = {};
 let inputQueue = [];
 
-function processInput() {
+function processKeyboardInput() {
   // Double buffering on the queue so we don't asynchronously receive inputs
   // while processing.
   let processMe = inputQueue;
@@ -55,7 +55,7 @@ function updateClients(elapsedTime) {
 }
 
 function gameLoop(currentTime, elapsedTime) {
-  processInput();
+  processKeyboardInput();
   update(elapsedTime, currentTime);
   updateClients(elapsedTime);
 

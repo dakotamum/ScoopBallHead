@@ -1,6 +1,6 @@
 MyGame.objects.player = function (spec) {
   "use strict";
-  // constants
+
   const velocityConstant = 0.000175;
 
   let center = {

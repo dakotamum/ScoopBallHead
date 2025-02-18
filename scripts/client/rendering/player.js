@@ -1,4 +1,3 @@
-// renderer for a player
 MyGame.renderer.player = (function (graphics, assets) {
   "use-strict";
 

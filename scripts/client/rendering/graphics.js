@@ -1,4 +1,3 @@
-// provides general methods for rendering to the canvas
 MyGame.graphics = (function (assets) {
   "use strict";
   let canvas = document.getElementById("game-canvas");
@@ -22,7 +21,6 @@ MyGame.graphics = (function (assets) {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
 
-  // draw a rectangle
   function drawRectangle(spec) {
     context.save();
     context.fillStyle = spec.fillStyle;
@@ -32,7 +30,6 @@ MyGame.graphics = (function (assets) {
     context.restore();
   }
 
-  // draw a circle
   function drawCircle(spec) {
     context.save();
     context.beginPath();
@@ -132,7 +129,6 @@ MyGame.graphics = (function (assets) {
     });
   }
 
-  // draw the game background
   function drawBackground(player) {
     // draw grass
     let numTilesInScreen = Math.ceil(canvasSize_w / tileSize_w);
@@ -168,7 +164,7 @@ MyGame.graphics = (function (assets) {
         // );
 
         drawRectangle({
-          fillStyle: "#8c67ff",
+          fillStyle: "#c0ccd6",
           strokeStyle: "",
           x: Math.ceil(
             ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
@@ -193,7 +189,7 @@ MyGame.graphics = (function (assets) {
         context.save();
 
         drawRectangle({
-          fillStyle: "#202020",
+          fillStyle: "#444657",
           strokeStyle: "black",
           x: Math.ceil(
             ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
@@ -284,7 +280,7 @@ MyGame.graphics = (function (assets) {
     // });
 
     drawCircle({
-      fillStyle: "#fff150",
+      fillStyle: "#22a7d4",
       strokeStyle: "",
       x: 0.5 * canvas.width, // Center of canvas horizontally
       y: 0.5 * canvas.height, // Center of canvas vertically
