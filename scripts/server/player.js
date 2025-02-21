@@ -1,5 +1,9 @@
 "use strict";
 
+function roundToThousandth(value) {
+  return Math.round(value * 1000) / 1000;
+}
+
 function createPlayer(id) {
   const velocityConstant = 0.000175;
   let privateId = id;
@@ -8,7 +12,7 @@ function createPlayer(id) {
     x: 0.5,
     y: 0.5,
   };
-  let radius = 0.03;
+  let radius = 0.05;
   let fill = "#ea92ab";
   let stroke = "#61567d";
   let reportUpdate = false;
@@ -38,27 +42,35 @@ function createPlayer(id) {
     switch (message.direction) {
       case "up-left":
         angle = (5 * Math.PI) / 4;
+        // moveDirectionToRender = "left";
         break;
       case "up-right":
         angle = (7 * Math.PI) / 4;
+        // moveDirectionToRender = "right";
         break;
       case "down-left":
         angle = (3 * Math.PI) / 4;
+        // moveDirectionToRender = "left";
         break;
       case "down-right":
         angle = Math.PI / 4;
+        // moveDirectionToRender = "right";
         break;
       case "up":
         angle = (3 * Math.PI) / 2;
+        // moveDirectionToRender = "up";
         break;
       case "down":
         angle = Math.PI / 2;
+        // moveDirectionToRender = "down";
         break;
       case "left":
         angle = Math.PI;
+        // moveDirectionToRender = "left";
         break;
       case "right":
         angle = 0;
+        // moveDirectionToRender = "right";
         break;
     }
     // moveTime += message.updateWindow;
@@ -213,50 +225,24 @@ function createPlayer(id) {
       }
     }
 
-    center.x = Math.max(
-      xMin,
-      Math.min(
-        xMax,
-        center.x + message.updateWindow * velocityConstant * Math.cos(angle),
+    center.x = roundToThousandth(
+      Math.max(
+        xMin,
+        Math.min(
+          xMax,
+          center.x + message.updateWindow * velocityConstant * Math.cos(angle),
+        ),
       ),
     );
-    center.y = Math.max(
-      yMin,
-      Math.min(
-        yMax,
-        center.y + message.updateWindow * velocityConstant * Math.sin(angle),
+    center.y = roundToThousandth(
+      Math.max(
+        yMin,
+        Math.min(
+          yMax,
+          center.y + message.updateWindow * velocityConstant * Math.sin(angle),
+        ),
       ),
     );
-
-    // let angle = 0;
-    // switch (message.direction) {
-    //   case "up-left":
-    //     angle = (5 * Math.PI) / 4;
-    //     break;
-    //   case "up-right":
-    //     angle = (7 * Math.PI) / 4;
-    //     break;
-    //   case "down-left":
-    //     angle = (3 * Math.PI) / 4;
-    //     break;
-    //   case "down-right":
-    //     angle = Math.PI / 4;
-    //     break;
-    //   case "up":
-    //     angle = (3 * Math.PI) / 2;
-    //     break;
-    //   case "down":
-    //     angle = Math.PI / 2;
-    //     break;
-    //   case "left":
-    //     angle = Math.PI;
-    //     break;
-    //   case "right":
-    //     angle = 0;
-    //     break;
-    // }
-    // center.x += message.updateWindow * velocityConstant * Math.cos(angle);
-    // center.y += message.updateWindow * velocityConstant * Math.sin(angle);
     reportUpdate = true;
   }
 

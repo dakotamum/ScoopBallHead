@@ -13,6 +13,10 @@ MyGame.objects.player = function (spec) {
   let moveTime = 0.0;
   let moveDirectionToRender = "right";
 
+  function roundToThousandth(value) {
+    return Math.round(value * 1000) / 1000;
+  }
+
   function move(message, tileMap) {
     let angle = 0;
     switch (message.direction) {
@@ -201,18 +205,22 @@ MyGame.objects.player = function (spec) {
       }
     }
 
-    center.x = Math.max(
-      xMin,
-      Math.min(
-        xMax,
-        center.x + message.updateWindow * velocityConstant * Math.cos(angle),
+    center.x = roundToThousandth(
+      Math.max(
+        xMin,
+        Math.min(
+          xMax,
+          center.x + message.updateWindow * velocityConstant * Math.cos(angle),
+        ),
       ),
     );
-    center.y = Math.max(
-      yMin,
-      Math.min(
-        yMax,
-        center.y + message.updateWindow * velocityConstant * Math.sin(angle),
+    center.y = roundToThousandth(
+      Math.max(
+        yMin,
+        Math.min(
+          yMax,
+          center.y + message.updateWindow * velocityConstant * Math.sin(angle),
+        ),
       ),
     );
   }
