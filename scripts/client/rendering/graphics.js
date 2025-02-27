@@ -165,7 +165,7 @@ MyGame.graphics = (function (assets) {
 
         drawRectangle({
           fillStyle: "#c0ccd6",
-          strokeStyle: "",
+          strokeStyle: "#b0ace6",
           x: Math.ceil(
             ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
               canvas.width) /
@@ -190,7 +190,7 @@ MyGame.graphics = (function (assets) {
 
         drawRectangle({
           fillStyle: "#444657",
-          strokeStyle: "black",
+          strokeStyle: "#444657",
           x: Math.ceil(
             ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
               canvas.width) /
