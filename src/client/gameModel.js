@@ -1,10 +1,8 @@
 // game model object
 MyGame.gameModel = (function (
   input,
-  graphics,
   renderer,
   objects,
-  particleManager,
   persistence,
   queue,
   assets,
@@ -15,7 +13,6 @@ MyGame.gameModel = (function (
   let keyboard = input.Keyboard();
   let playerOthers = {};
   let socket;
-  let myId;
   let myPlayer = objects.player();
   let messageId = 1;
   let messageHistory = queue();
@@ -36,12 +33,6 @@ MyGame.gameModel = (function (
     LEFT: Math.PI,
     RIGHT: 0,
   });
-
-  // internal state for when the game is over
-  let updateMyGameOver = function (elapsedTime) {};
-
-  // render game over state
-  let renderMyGameOver = function (elapsedTime) {};
 
   // processes keyboard input
   function processKeyboardInput(elapsedTime) {
@@ -108,7 +99,6 @@ MyGame.gameModel = (function (
 
   // internal state for updating game while actively playing
   let updateMyGame = function (elapsedTime) {
-    myPlayer.update(elapsedTime);
     for (let id in playerOthers) {
       playerOthers[id].update(elapsedTime);
     }
@@ -181,10 +171,6 @@ MyGame.gameModel = (function (
       let newPlayer = MyGame.objects.remotePlayer();
       newPlayer.id = data.id;
       newPlayer.player = data.player;
-      // newPlayer.goal = {
-      //   dinks: data.slinkyDink.dinks,
-      //   updateWindow: 0,
-      // };
       playerOthers[data.id] = newPlayer;
     });
 
@@ -245,10 +231,8 @@ MyGame.gameModel = (function (
   };
 })(
   MyGame.input,
-  MyGame.graphics,
   MyGame.renderer,
   MyGame.objects,
-  MyGame.particleManager,
   MyGame.persistence,
   MyGame.queue,
   MyGame.assets,

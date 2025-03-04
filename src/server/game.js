@@ -44,9 +44,6 @@ function updateClients(elapsedTime) {
           activeClients[otherId].socket.emit("update-other", update);
         }
       }
-      // for (let id in playerOthers) {
-      //   playerOthers[id].move(elapsedTime);
-      // }
     }
   }
   for (let clientId in activeClients) {

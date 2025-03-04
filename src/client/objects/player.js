@@ -14,11 +14,8 @@ MyGame.objects.player = function (spec) {
     moveIt(message, center);
   }
 
-  function update(elapsedTime) {}
-
   let api = {
     move: move,
-    update: update,
     get moveTime() {
       return moveTime;
     },

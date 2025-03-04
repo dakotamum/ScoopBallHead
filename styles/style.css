@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "Chewy-Regular";
-  src: url("../fonts/Chewy-Regular.ttf") format("truetype");
+  font-family: "Fredoka-Regular";
+  src: url("../fonts/Fredoka-Regular.ttf") format("truetype");
 }
 
 * {
-  font-family: "Chewy-Regular";
+  font-family: "Fredoka-Regular";
   margin: 0;
   padding: 0;
 }

@@ -1,8 +1,6 @@
 MyGame.objects.remotePlayer = function (spec) {
   "use strict";
 
-  const velocityConstant = 0.000175;
-
   let state = {
     center: {
       x: 0.5,
