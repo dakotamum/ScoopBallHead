@@ -157,13 +157,13 @@ MyGame.gameModel = (function (
     socket.on("update-other", function (data) {
       if (playerOthers.hasOwnProperty(data.id)) {
         let otherPlayer = playerOthers[data.id];
-        otherPlayer.goal = {
-          center: {
-            x: data.player.center.x,
-            y: data.player.center.y,
-          },
-          updateWindow: data.updateWindow,
-        };
+        if (!otherPlayer) return;
+
+        otherPlayer.onServerUpdate({
+          x: data.player.center.x,
+          y: data.player.center.y,
+          updateWindow: data.updateWindow
+        });
       }
     });
 

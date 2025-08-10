@@ -185,7 +185,7 @@
         <div
           style="
             display: grid;
-            grid-template-rows: auto auto auto auto;
+            grid-template-rows: auto auto auto;
             grid-template-columns: 1fr 1fr;
             gap: 2vw;
           "
@@ -201,7 +201,7 @@
           >
             Game Setup
           </div>
-          <div
+          <!-- <div
             style="
               grid-column: span 2;
               font-size: 3vw;
@@ -213,16 +213,23 @@
             "
           >
             Pick a Player Name
-          </div>
+          </div> -->
           <div
             style="
               grid-column: span 2;
-              display: flex;
+              grid-template-rows: 2;
+              grid-template-columns: 2;
+              background-color: green;
+              /* grid-column: span 2; */
+              /* display: flex;
               align-items: center;
-              justify-content: center;
+              justify-content: center; */
             "
           >
+            <div style="background-color: pink; text-align: center;"> Player Name </div>
             <input id="username-input" type="text" />
+            <div> Is Villain: </div>
+            <input id="is-villain-input" type="checkbox">
           </div>
           <button id="username-back">Back</button>
           <button id="enter">Start!</button>

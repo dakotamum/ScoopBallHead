@@ -21,7 +21,7 @@ MyGame.game = (function (screens) {
       }
     }
     // TODO: switch back to main-menu after debuggering :)
-    showScreen("gameplay");
+    showScreen("main-menu");
   }
   return {
     initialize: initialize,
