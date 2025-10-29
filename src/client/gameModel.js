@@ -4,18 +4,13 @@ MyGame.gameModel = (function (
   renderer,
   objects,
   persistence,
-  queue,
   assets,
 ) {
   "use strict";
   let internalUpdate = null;
   let internalRender = null;
   let keyboard = input.Keyboard();
-  let playerOthers = {};
-  let socket;
   let myPlayer = objects.player();
-  let messageId = 1;
-  let messageHistory = queue();
   let directions = {
     up: false,
     down: false,
@@ -75,15 +70,15 @@ MyGame.gameModel = (function (
       myPlayer.moveTime = 0.0;
     }
     if (isMoving) {
-      let message = {
-        type: "move",
-        direction: direction,
-        updateWindow: elapsedTime,
-        id: messageId++,
-      };
-      socket.emit("input", message);
-      messageHistory.enqueue(message);
-      myPlayer.move(message, assets.tileMap);
+    //   let message = {
+    //     type: "move",
+    //     direction: direction,
+    //     updateWindow: elapsedTime,
+    //     id: messageId++,
+    //   };
+    //   socket.emit("input", message);
+    //   messageHistory.enqueue(message);
+      myPlayer.move(direction, elapsedTime);
     }
   }
 
@@ -99,24 +94,15 @@ MyGame.gameModel = (function (
 
   // internal state for updating game while actively playing
   let updateMyGame = function (elapsedTime) {
-    for (let id in playerOthers) {
-      playerOthers[id].update(elapsedTime);
-    }
   };
 
   function disconnect() {
-    socket.disconnect();
+    // socket.disconnect();
   }
 
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
-    MyGame.graphics.drawBackground(myPlayer);
-    for (const id in playerOthers) {
-      if (playerOthers.hasOwnProperty(id)) {
-        // Check if the property is directly on the object
-        renderer.player.renderOtherPlayer(myPlayer, playerOthers[id]);
-      }
-    }
+    // MyGame.graphics.drawBackground(myPlayer);
     renderer.player.renderMyPlayer(myPlayer);
   };
 
@@ -124,57 +110,6 @@ MyGame.gameModel = (function (
   function setupMyGame() {
     internalUpdate = updateMyGame;
     internalRender = renderMyGame;
-    // set up initial connection and send username
-    socket = io({
-      query: {
-        /*username: mySlinkeyDink.name*/
-      },
-    });
-    socket.on("connect-ack", function (data) {});
-
-    socket.on("update-self", function (data) {
-      myPlayer.center.x = data.player.center.x;
-      myPlayer.center.y = data.player.center.y;
-
-      let done = false;
-      while (!done && !messageHistory.empty) {
-        if (messageHistory.front.id === data.lastMessageId) {
-          done = true;
-        }
-        messageHistory.dequeue();
-      }
-      let memory = queue();
-      while (!messageHistory.empty) {
-        let message = messageHistory.dequeue();
-        if (message.type === "move") {
-          myPlayer.move(message, assets.tileMap);
-        }
-        memory.enqueue(message);
-      }
-      messageHistory = memory;
-    });
-
-    socket.on("update-other", function (data) {
-      if (playerOthers.hasOwnProperty(data.id)) {
-        let otherPlayer = playerOthers[data.id];
-        if (!otherPlayer) return;
-
-        otherPlayer.onServerUpdate({
-          x: data.player.center.x,
-          y: data.player.center.y,
-          updateWindow: data.updateWindow
-        });
-      }
-    });
-
-    socket.on("connect-other", function (data) {
-      let newPlayer = MyGame.objects.remotePlayer();
-      newPlayer.id = data.id;
-      newPlayer.player = data.player;
-      playerOthers[data.id] = newPlayer;
-    });
-
-    socket.on("disconnect-other", function (data) {});
     enableControls();
   }
 
@@ -234,6 +169,5 @@ MyGame.gameModel = (function (
   MyGame.renderer,
   MyGame.objects,
   MyGame.persistence,
-  MyGame.queue,
   MyGame.assets,
 );

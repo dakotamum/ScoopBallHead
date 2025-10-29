@@ -1,16 +1,12 @@
-@font-face {
+/* @font-face {
   font-family: "Fredoka-Regular";
   src: url("../fonts/Fredoka-Regular.ttf") format("truetype");
-}
+} */
 
 * {
-  font-family: "Fredoka-Regular";
+  /* font-family: "Fredoka-Regular"; */
   margin: 0;
   padding: 0;
-}
-
-th {
-  text-decoration: underline;
 }
 
 html {
@@ -35,40 +31,8 @@ li {
   list-style: none;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  padding: 1vh;
-  width: 100%;
-  max-width: 50vw;
-  box-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  height: 5vh;
-  font-size: 2vw;
-}
-
-input {
-  border: none;
-  cursor: pointer;
-  padding: 1vh;
-  width: 100%;
-  max-width: 50vw;
-  box-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
-  font-size: 2vw;
-  text-align: center;
-}
-
-input:focus {
-  outline: none;
-}
-
-h1 {
-  font-size: 4vh;
-}
-
 canvas {
-  background-color: #8c67ff;
+  background-color: white;
 }
 
 .game {
@@ -78,20 +42,10 @@ canvas {
   height: 100%;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 .screen {
   width: 100%;
   height: 100%;
   display: none;
-  animation: fadeIn 0.5s ease-in forwards;
 }
 
 .screen.active {
@@ -122,9 +76,4 @@ canvas {
   align-items: center;
   width: 100%;
   height: 10%;
-}
-
-.score-item {
-  justify-content: left;
-  text-align: left;
 }

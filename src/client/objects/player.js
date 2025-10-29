@@ -2,16 +2,18 @@ MyGame.objects.player = function (spec) {
   "use strict";
 
   let center = {
-    x: 0.5,
-    y: 0.5,
+    x: 64,
+    y: 64,
   };
+  let width = 16;
+  let height = 16;
   let fill = "#a065cd";
   let stroke = "#ddf8d0";
   let moveTime = 0.0;
   let moveDirectionToRender = "right";
 
-  function move(message, tileMap) {
-    moveIt(message, center);
+  function move(direction, elapsedtime) {
+    moveIt(direction, elapsedtime, center);
   }
 
   let api = {
@@ -27,6 +29,18 @@ MyGame.objects.player = function (spec) {
     },
     set center(val) {
       center = val;
+    },
+    get width() {
+      return width;
+    },
+    set width(val) {
+      width = val;
+    },
+    get height() {
+      return height;
+    },
+    set height(val) {
+      height = val;
     },
     get radius() {
       return radius;

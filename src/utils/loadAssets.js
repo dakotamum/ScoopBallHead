@@ -2,13 +2,8 @@
 let loadAssets = (function () {
   "use-strict";
   let assetPaths = {
-    // images and sound paths here
-    // assetName: "path/to/asset"
-    player: "assets/player.png",
-    coneman: "assets/coneman.png",
-    gameTitle: "assets/gameTitle.png",
     grass: "assets/grass.png",
-    wall: "assets/wall.png",
+    player1: "assets/player1.png"
   };
   let loadedAssets = 0;
   let assetCount = Object.keys(assetPaths).length;
@@ -16,29 +11,6 @@ let loadAssets = (function () {
   function assetLoaded() {
     loadedAssets++;
     if (loadedAssets >= assetCount) {
-      (MyGame.assets.tileMap = [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-        [1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1],
-        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      ]),
-        (MyGame.assets.tileSet = {
-          0: MyGame.assets.grass,
-          1: MyGame.assets.wall,
-        });
-
       // all assets loaded, initialize the game
       MyGame.game.initialize();
     }

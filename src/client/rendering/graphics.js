@@ -3,18 +3,21 @@ MyGame.graphics = (function (assets) {
   let canvas = document.getElementById("game-canvas");
   let canvasSize_w = 1.0 / 2;
   let tileSize_w = 1.0 / 16;
-  let boardSize_tiles = 16;
+  let numPixels_width = 128;
   let gamediv = document.getElementById("game");
 
   canvas.width = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
   canvas.height = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
+  let numActualPixelsPerPixel = canvas.width / numPixels_width;
 
   window.addEventListener("resize", function () {
     canvas.width = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
     canvas.height = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
+    numActualPixelsPerPixel = canvas.width / numPixels_width;
   });
 
   let context = canvas.getContext("2d");
+  context.imageSmoothingEnabled = false;
 
   // clear the canvas
   function clear() {
@@ -251,12 +254,17 @@ MyGame.graphics = (function (assets) {
     // context.translate(center.x * canvas.width, center.y * canvas.height);
     // context.rotate(rotation);
     // context.translate(-center.x, -center.y);
-    // context.drawImage(
-    //   image,
-    //   center.x - (size.width * canvas.width) / 2,
-    //   center.y - (size.height * canvas.height) / 2,
-    //   size.width * canvas.width,
-    //   size.height * canvas.height);
+    context.drawImage(
+      assets.player1,
+      (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
+      (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
+      myPlayer.width * numActualPixelsPerPixel,
+      myPlayer.height * numActualPixelsPerPixel);
+
+    //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
+    //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
+    //   width: myPlayer.width * numActualPixelsPerPixel,
+    //   height: myPlayer.height * numActualPixelsPerPixel,
 
     context.save();
     // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
@@ -270,22 +278,24 @@ MyGame.graphics = (function (assets) {
     //   rendSize * canvas.height / canvasSize_w
     // );
 
+    // console.log(myPlayer.x - (myPlayer.width / 2) * numActualPixelsPerPixel);
+
     // drawRectangle({
-    //   fillStyle: "yellow",
+    //   fillStyle: "cyan",
     //   strokeStyle: "",
-    //   x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
-    //   y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
-    //   width: size * canvas.width / canvasSize_w,
-    //   height: size * canvas.height / canvasSize_w
+    //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
+    //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
+    //   width: myPlayer.width * numActualPixelsPerPixel,
+    //   height: myPlayer.height * numActualPixelsPerPixel,
     // });
 
-    drawCircle({
-      fillStyle: "#22a7d4",
-      strokeStyle: "",
-      x: 0.5 * canvas.width, // Center of canvas horizontally
-      y: 0.5 * canvas.height, // Center of canvas vertically
-      radius: (0.5 * myPlayer.radius * canvas.width) / canvasSize_w, // Radius proportional to canvas size
-    });
+    // drawCircle({
+    //   fillStyle: "#22a7d4",
+    //   strokeStyle: "",
+    //   x: 0.5 * canvas.width, // Center of canvas horizontally
+    //   y: 0.5 * canvas.height, // Center of canvas vertically
+    //   radius: (0.5 * myPlayer.radius * canvas.width) / canvasSize_w, // Radius proportional to canvas size
+    // });
 
     context.restore();
   }

@@ -6,7 +6,7 @@ MyGame.screens["main-menu"] = (function (game, assets) {
     document
       .getElementById("new-game-button")
       .addEventListener("click", function () {
-        game.showScreen("username");
+        game.showScreen("gameplay");
       });
     document
       .getElementById("controls-button")
