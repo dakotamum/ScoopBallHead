@@ -4,7 +4,6 @@ MyGame.gameModel = (function (
   renderer,
   objects,
   persistence,
-  assets,
 ) {
   "use strict";
   let internalUpdate = null;
@@ -18,67 +17,38 @@ MyGame.gameModel = (function (
     right: false,
   };
 
-  const Dir = Object.freeze({
-    UP_LEFT: (5 * Math.PI) / 4,
-    UP_RIGHT: (7 * Math.PI) / 4,
-    DOWN_LEFT: (3 * Math.PI) / 4,
-    DOWN_RIGHT: Math.PI / 4,
-    UP: (3 * Math.PI) / 2,
-    DOWN: Math.PI / 2,
-    LEFT: Math.PI,
-    RIGHT: 0,
-  });
+  let accumulatedMoveTime = 0.0;
+  let millisecondsPerMove = 250;
 
   // processes keyboard input
   function processKeyboardInput(elapsedTime) {
     keyboard.update(elapsedTime);
-    let direction = "";
-    let isMoving = false;
-    if (directions.up && directions.left) {
-      myPlayer.angle = Dir.UP_LEFT;
-      direction = "up-left";
-      isMoving = true;
-    } else if (directions.up && directions.right) {
-      myPlayer.angle = Dir.UP_RIGHT;
-      direction = "up-right";
-      isMoving = true;
-    } else if (directions.down && directions.left) {
-      myPlayer.angle = Dir.DOWN_LEFT;
-      direction = "down-left";
-      isMoving = true;
-    } else if (directions.down && directions.right) {
-      myPlayer.angle = Dir.DOWN_RIGHT;
-      direction = "down-right";
-      isMoving = true;
-    } else if (directions.up) {
-      myPlayer.angle = Dir.UP;
+    let direction = myPlayer.currentDirection;
+    if (directions.up) {
       direction = "up";
-      isMoving = true;
     } else if (directions.down) {
-      myPlayer.angle = Dir.DOWN;
       direction = "down";
-      isMoving = true;
     } else if (directions.left) {
-      myPlayer.angle = Dir.LEFT;
       direction = "left";
-      isMoving = true;
     } else if (directions.right) {
-      myPlayer.angle = Dir.RIGHT;
       direction = "right";
-      isMoving = true;
-    } else {
-      myPlayer.moveTime = 0.0;
     }
-    if (isMoving) {
-    //   let message = {
-    //     type: "move",
-    //     direction: direction,
-    //     updateWindow: elapsedTime,
-    //     id: messageId++,
-    //   };
-    //   socket.emit("input", message);
-    //   messageHistory.enqueue(message);
-      myPlayer.move(direction, elapsedTime);
+
+    accumulatedMoveTime += elapsedTime;
+    if (direction == "left" && myPlayer.lastDirection == "right")
+      direction = "right";
+    if (direction == "right" && myPlayer.lastDirection == "left")
+      direction = "left";
+    if (direction == "up" && myPlayer.lastDirection == "down")
+      direction = "down";
+    if (direction == "down" && myPlayer.lastDirection == "up")
+      direction = "up";
+    if (accumulatedMoveTime > millisecondsPerMove)
+    {
+      let numTimeSteps = Math.floor(accumulatedMoveTime / millisecondsPerMove);
+      accumulatedMoveTime = accumulatedMoveTime % millisecondsPerMove;
+      myPlayer.move(direction, numTimeSteps * millisecondsPerMove);
+      myPlayer.lastDirection = direction;
     }
   }
 
@@ -118,37 +88,57 @@ MyGame.gameModel = (function (
     keyboard.register(
       persistence.controls["up"],
       () => {
-        if (!directions.up) directions.up = true;
+        if (!directions.down)
+          {
+            directions.left = false;
+            directions.right = false;
+            directions.up = true;
+          }
       },
       () => {
-        directions.up = false;
+        // directions.up = false;
       },
     );
     keyboard.register(
       persistence.controls["down"],
       () => {
-        if (!directions.down) directions.down = true;
+        if (!directions.up)
+          {
+            directions.left = false;
+            directions.right = false;
+            directions.down = true;
+          }
       },
       () => {
-        directions.down = false;
+        // directions.down = false;
       },
     );
     keyboard.register(
       persistence.controls["left"],
       () => {
-        if (!directions.left) directions.left = true;
+        if (!directions.right)
+          {
+            directions.up = false;
+            directions.down = false;
+            directions.left = true;
+          }
       },
       () => {
-        directions.left = false;
+        // directions.left = false;
       },
     );
     keyboard.register(
       persistence.controls["right"],
       () => {
-        if (!directions.right) directions.right = true;
+        if (!directions.left)
+          {
+            directions.up = false;
+            directions.down = false;
+            directions.right = true;
+          }
       },
       () => {
-        directions.right = false;
+        // directions.right = false;
       },
     );
   }

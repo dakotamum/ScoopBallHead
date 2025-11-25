@@ -1,19 +1,20 @@
 MyGame.graphics = (function (assets) {
   "use strict";
   let canvas = document.getElementById("game-canvas");
-  let canvasSize_w = 1.0 / 2;
-  let tileSize_w = 1.0 / 16;
-  let numPixels_width = 128;
+  let canvasSize_World = 8;
+  let tileSize_World = 1;
+  let numTiles_Width = 8;
   let gamediv = document.getElementById("game");
 
   canvas.width = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
   canvas.height = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
-  let numActualPixelsPerPixel = canvas.width / numPixels_width;
+  let numPixelsPerTile = canvas.width / numTiles_Width;
 
   window.addEventListener("resize", function () {
     canvas.width = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
     canvas.height = Math.min(gamediv.clientWidth, gamediv.clientHeight) * 0.95;
-    numActualPixelsPerPixel = canvas.width / numPixels_width;
+    numPixelsPerTile = canvas.width / numTiles_Width;
+    context.imageSmoothingEnabled = false;
   });
 
   let context = canvas.getContext("2d");
@@ -134,16 +135,16 @@ MyGame.graphics = (function (assets) {
 
   function drawBackground(player) {
     // draw grass
-    let numTilesInScreen = Math.ceil(canvasSize_w / tileSize_w);
+    let numTilesInScreen = Math.ceil(canvasSize_World / tileSize_World);
     let colMin = Math.max(
       0,
-      Math.floor((player.center.x - canvasSize_w / 2) / tileSize_w),
+      Math.floor((player.center.x - canvasSize_World / 2) / tileSize_World),
     );
     let colMax = Math.min(boardSize_tiles, colMin + numTilesInScreen + 2);
 
     let rowMin = Math.max(
       0,
-      Math.floor((player.center.y - canvasSize_w / 2) / tileSize_w),
+      Math.floor((player.center.y - canvasSize_World / 2) / tileSize_World),
     );
     let rowMax = Math.min(boardSize_tiles, rowMin + numTilesInScreen + 2);
 
@@ -170,17 +171,17 @@ MyGame.graphics = (function (assets) {
           fillStyle: "#c0ccd6",
           strokeStyle: "#b0ace6",
           x: Math.ceil(
-            ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
+            ((col * tileSize_World - (player.center.x - canvasSize_World / 2)) *
               canvas.width) /
-              canvasSize_w,
+              canvasSize_World,
           ),
           y: Math.ceil(
-            ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
+            ((row * tileSize_World - (player.center.y - canvasSize_World / 2)) *
               canvas.width) /
-              canvasSize_w,
+              canvasSize_World,
           ),
-          width: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-          height: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+          width: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
+          height: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
         });
         context.restore();
       }
@@ -195,17 +196,17 @@ MyGame.graphics = (function (assets) {
           fillStyle: "#444657",
           strokeStyle: "#444657",
           x: Math.ceil(
-            ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
+            ((col * tileSize_World - (player.center.x - canvasSize_World / 2)) *
               canvas.width) /
-              canvasSize_w,
+              canvasSize_World,
           ),
           y: Math.ceil(
-            ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
+            ((row * tileSize_World - (player.center.y - canvasSize_World / 2)) *
               canvas.width) /
-              canvasSize_w,
+              canvasSize_World,
           ),
-          width: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-          height: Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
+          width: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
+          height: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
         });
 
         // context.drawImage(
@@ -256,10 +257,10 @@ MyGame.graphics = (function (assets) {
     // context.translate(-center.x, -center.y);
     context.drawImage(
       assets.player1,
-      (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
-      (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
-      myPlayer.width * numActualPixelsPerPixel,
-      myPlayer.height * numActualPixelsPerPixel);
+      (Math.round(myPlayer.center.x)) * numPixelsPerTile,
+      (Math.round(myPlayer.center.y)) * numPixelsPerTile,
+      myPlayer.width * numPixelsPerTile,
+      myPlayer.height * numPixelsPerTile);
 
     //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
     //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
@@ -303,8 +304,8 @@ MyGame.graphics = (function (assets) {
   function drawOtherPlayer(myPlayer, otherPlayer) {
     // let rendSize = size * 1.25;
 
-    let relX = (otherPlayer.state.center.x - myPlayer.center.x) / canvasSize_w;
-    let relY = (otherPlayer.state.center.y - myPlayer.center.y) / canvasSize_w;
+    let relX = (otherPlayer.state.center.x - myPlayer.center.x) / canvasSize_World;
+    let relY = (otherPlayer.state.center.y - myPlayer.center.y) / canvasSize_World;
 
     context.save();
     // context.translate(center.x * canvas.width, center.y * canvas.height);
@@ -343,7 +344,7 @@ MyGame.graphics = (function (assets) {
       strokeStyle: "",
       x: (relX + 0.5) * canvas.width,
       y: (relY + 0.5) * canvas.width,
-      radius: (0.5 * otherPlayer.radius * canvas.width) / canvasSize_w, // Radius proportional to canvas size
+      radius: (0.5 * otherPlayer.radius * canvas.width) / canvasSize_World, // Radius proportional to canvas size
     });
 
     context.restore();

@@ -2,15 +2,16 @@ MyGame.objects.player = function (spec) {
   "use strict";
 
   let center = {
-    x: 64,
-    y: 64,
+    x: 0,
+    y: 0,
   };
-  let width = 16;
-  let height = 16;
+  let width = 1;
+  let height = 1;
   let fill = "#a065cd";
   let stroke = "#ddf8d0";
   let moveTime = 0.0;
-  let moveDirectionToRender = "right";
+  let lastDirection = "down";
+  let currentDirection = "down";
 
   function move(direction, elapsedtime) {
     moveIt(direction, elapsedtime, center);
@@ -42,6 +43,12 @@ MyGame.objects.player = function (spec) {
     set height(val) {
       height = val;
     },
+    get lastDirection() {
+      return lastDirection;
+    },
+    set lastDirection(val) {
+      lastDirection = val;
+    },
     get radius() {
       return radius;
     },
@@ -54,8 +61,8 @@ MyGame.objects.player = function (spec) {
     get stroke() {
       return stroke;
     },
-    get moveDirectionToRender() {
-      return moveDirectionToRender;
+    get currentDirection() {
+      return currentDirection;
     },
   };
   return api;

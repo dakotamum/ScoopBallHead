@@ -3,21 +3,21 @@ MyGame.renderer.player = (function (graphics, assets) {
 
   // render the player
   function renderMyPlayer(myPlayer) {
-    let row;
-    switch (myPlayer.moveDirectionToRender) {
-      case "up":
-        row = 3;
-        break;
-      case "down":
-        row = 2;
-        break;
-      case "left":
-        row = 1;
-        break;
-      case "right":
-        row = 0;
-        break;
-    }
+    // let row;
+    // switch (myPlayer.currentDirection) {
+    //   case "up":
+    //     row = 3;
+    //     break;
+    //   case "down":
+    //     row = 2;
+    //     break;
+    //   case "left":
+    //     row = 1;
+    //     break;
+    //   case "right":
+    //     row = 0;
+    //     break;
+    // }
     graphics.drawMyPlayer(myPlayer);
   }
 
