@@ -256,11 +256,23 @@ MyGame.graphics = (function (assets) {
     // context.rotate(rotation);
     // context.translate(-center.x, -center.y);
     context.drawImage(
-      assets.player1,
-      (Math.round(myPlayer.center.x)) * numPixelsPerTile,
-      (Math.round(myPlayer.center.y)) * numPixelsPerTile,
+      assets.head,
+      (Math.round(myPlayer.snakePositions[0].x)) * numPixelsPerTile,
+      (Math.round(myPlayer.snakePositions[0].y)) * numPixelsPerTile,
       myPlayer.width * numPixelsPerTile,
       myPlayer.height * numPixelsPerTile);
+
+    myPlayer.snakePositions.forEach((value, i) => {
+      if (i !== 0)
+      {
+      context.drawImage(
+        (value.heading == "down" || value.heading == "up" ? assets.bodyUpDown : assets.bodyLeftRight),
+        (Math.round(value.x)) * numPixelsPerTile,
+        (Math.round(value.y)) * numPixelsPerTile,
+        myPlayer.width * numPixelsPerTile,
+        myPlayer.height * numPixelsPerTile);
+      }
+    });
 
     //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
     //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,

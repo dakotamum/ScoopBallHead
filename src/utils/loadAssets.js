@@ -3,7 +3,9 @@ let loadAssets = (function () {
   "use-strict";
   let assetPaths = {
     grass: "assets/grass.png",
-    player1: "assets/player1.png"
+    head: "assets/head.png",
+    bodyUpDown: "assets/body-up-down.png",
+    bodyLeftRight: "assets/body-left-right.png"
   };
   let loadedAssets = 0;
   let assetCount = Object.keys(assetPaths).length;

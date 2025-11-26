@@ -5,6 +5,11 @@ MyGame.objects.player = function (spec) {
     x: 0,
     y: 0,
   };
+  let snakePositions = [
+    {x: 4, y: 4, heading: "down"},
+    {x: 4, y: 3, heading: "down"},
+    {x: 4, y: 2, heading: "down"}
+  ]
   let width = 1;
   let height = 1;
   let fill = "#a065cd";
@@ -14,7 +19,7 @@ MyGame.objects.player = function (spec) {
   let currentDirection = "down";
 
   function move(direction, elapsedtime) {
-    moveIt(direction, elapsedtime, center);
+    moveIt(direction, elapsedtime, snakePositions);
   }
 
   let api = {
@@ -30,6 +35,12 @@ MyGame.objects.player = function (spec) {
     },
     set center(val) {
       center = val;
+    },
+    get snakePositions() {
+      return snakePositions;
+    },
+    set snakePositions(val) {
+      snakePositions = val;
     },
     get width() {
       return width;

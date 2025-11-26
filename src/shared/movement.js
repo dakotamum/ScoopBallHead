@@ -1,6 +1,6 @@
-const velocityConstant = 2;
+const velocityConstant = 4;
 
-function moveIt(direction, elapsedTime, center) {
+function moveIt(direction, elapsedTime, snakePositions) {
   let angle = 0;
   switch (direction) {
     case "up":
@@ -16,8 +16,15 @@ function moveIt(direction, elapsedTime, center) {
       angle = 0;
       break;
   }
-  center.y += (elapsedTime / 1000) * velocityConstant * Math.sin(angle);
-  center.x += (elapsedTime / 1000) * velocityConstant * Math.cos(angle);
+
+  const snakeCopy = snakePositions.map(seg => ({...seg}));
+  snakePositions[0].y += (elapsedTime / 1000) * velocityConstant * Math.sin(angle);
+  snakePositions[0].x += (elapsedTime / 1000) * velocityConstant * Math.cos(angle);
+  snakePositions[0].heading = direction;
+  for (let i = 1; i < snakePositions.length; i++) {
+    snakePositions[i] = snakeCopy[i - 1];
+  }
+  console.log(snakePositions);
 }
 
 // Check if running in Node.js (CommonJS)
