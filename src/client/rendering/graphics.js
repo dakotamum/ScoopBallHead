@@ -133,98 +133,20 @@ MyGame.graphics = (function (assets) {
     });
   }
 
-  function drawBackground(player) {
-    // draw grass
-    let numTilesInScreen = Math.ceil(canvasSize_World / tileSize_World);
-    let colMin = Math.max(
-      0,
-      Math.floor((player.center.x - canvasSize_World / 2) / tileSize_World),
-    );
-    let colMax = Math.min(boardSize_tiles, colMin + numTilesInScreen + 2);
-
-    let rowMin = Math.max(
-      0,
-      Math.floor((player.center.y - canvasSize_World / 2) / tileSize_World),
-    );
-    let rowMax = Math.min(boardSize_tiles, rowMin + numTilesInScreen + 2);
-
-    for (let row = rowMin; row < rowMax; row++) {
-      for (let col = colMin; col < colMax; col++) {
+  function drawBackground() {
+    for (let i = 0; i < numTiles_Width; i++)
+    {
+      for (let j = 0; j < numTiles_Width; j++)
+      {
         context.save();
-        // context.drawImage(
-        //   assets.grass,
-        //   Math.ceil(
-        //     ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
-        //       canvas.width) /
-        //       canvasSize_w,
-        //   ),
-        //   Math.ceil(
-        //     ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
-        //       canvas.width) /
-        //       canvasSize_w,
-        //   ),
-        //   Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-        //   Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-        // );
-
-        drawRectangle({
-          fillStyle: "#c0ccd6",
-          strokeStyle: "#b0ace6",
-          x: Math.ceil(
-            ((col * tileSize_World - (player.center.x - canvasSize_World / 2)) *
-              canvas.width) /
-              canvasSize_World,
-          ),
-          y: Math.ceil(
-            ((row * tileSize_World - (player.center.y - canvasSize_World / 2)) *
-              canvas.width) /
-              canvasSize_World,
-          ),
-          width: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
-          height: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
-        });
-        context.restore();
-      }
-    }
-
-    for (let row = rowMin; row < rowMax; row++) {
-      for (let col = colMin; col < colMax; col++) {
-        if (assets.tileMap[row][col] === 0) continue;
-        context.save();
-
-        drawRectangle({
-          fillStyle: "#444657",
-          strokeStyle: "#444657",
-          x: Math.ceil(
-            ((col * tileSize_World - (player.center.x - canvasSize_World / 2)) *
-              canvas.width) /
-              canvasSize_World,
-          ),
-          y: Math.ceil(
-            ((row * tileSize_World - (player.center.y - canvasSize_World / 2)) *
-              canvas.width) /
-              canvasSize_World,
-          ),
-          width: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
-          height: Math.ceil((tileSize_World * canvas.width) / canvasSize_World),
-        });
-
-        // context.drawImage(
-        //   assets.tileSet[assets.tileMap[row][col]],
-        //   Math.ceil(
-        //     ((col * tileSize_w - (player.center.x - canvasSize_w / 2)) *
-        //       canvas.width) /
-        //       canvasSize_w,
-        //   ),
-        //   Math.ceil(
-        //     ((row * tileSize_w - (player.center.y - canvasSize_w / 2)) *
-        //       canvas.width) /
-        //       canvasSize_w,
-        //   ),
-        //   Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-        //   Math.ceil((tileSize_w * canvas.width) / canvasSize_w),
-        // );
-        context.restore();
+        context.drawImage(
+          assets.grass,
+          j * numPixelsPerTile,
+          i * numPixelsPerTile,
+          numPixelsPerTile,
+          numPixelsPerTile);
+          context.save();
+          context.restore();
       }
     }
   }
@@ -256,23 +178,107 @@ MyGame.graphics = (function (assets) {
     // context.rotate(rotation);
     // context.translate(-center.x, -center.y);
     context.drawImage(
-      assets.head,
+      (myPlayer.snakePositions[0].heading == "down" ? assets.headDown : (myPlayer.snakePositions[0].heading == "up" ? assets.headUp : (myPlayer.snakePositions[0].heading == "left" ? assets.headLeft : assets.headRight))),
       (Math.round(myPlayer.snakePositions[0].x)) * numPixelsPerTile,
       (Math.round(myPlayer.snakePositions[0].y)) * numPixelsPerTile,
       myPlayer.width * numPixelsPerTile,
       myPlayer.height * numPixelsPerTile);
 
     myPlayer.snakePositions.forEach((value, i) => {
-      if (i !== 0)
+      if (i !== 0 && i != myPlayer.snakePositions.length - 1)
       {
+        let asset;
+        if (value.heading == "down")
+        {
+          if (myPlayer.snakePositions[i-1].heading == "right")
+            asset = assets.bodyDownRight;
+          else if (myPlayer.snakePositions[i-1].heading == "left")
+            asset = assets.bodyRightUp;
+          else
+            asset = assets.bodyUpDown;
+        }
+        else if (value.heading == "up")
+        {
+          if (myPlayer.snakePositions[i-1].heading == "right")
+            asset = assets.bodyUpRight;
+          else if (myPlayer.snakePositions[i-1].heading == "left")
+            asset = assets.bodyRightDown;
+          else
+            asset = assets.bodyUpDown;
+        }
+        else if (value.heading == "right")
+        {
+          if (myPlayer.snakePositions[i-1].heading == "up")
+            asset = assets.bodyRightUp;
+          else if (myPlayer.snakePositions[i-1].heading == "down")
+            asset = assets.bodyRightDown;
+          else
+            asset = assets.bodyLeftRight;
+        }
+        else if (value.heading == "left")
+        {
+          if (myPlayer.snakePositions[i-1].heading == "up")
+            asset = assets.bodyDownRight;
+          else if (myPlayer.snakePositions[i-1].heading == "down")
+            asset = assets.bodyUpRight;
+          else
+            asset = assets.bodyLeftRight;
+        }
       context.drawImage(
-        (value.heading == "down" || value.heading == "up" ? assets.bodyUpDown : assets.bodyLeftRight),
+        asset,
         (Math.round(value.x)) * numPixelsPerTile,
         (Math.round(value.y)) * numPixelsPerTile,
         myPlayer.width * numPixelsPerTile,
         myPlayer.height * numPixelsPerTile);
       }
     });
+
+    {
+      let asset;
+      if (myPlayer.snakePositions[myPlayer.snakePositions.length - 1].heading == "down")
+      {
+        if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "left")
+          asset = assets.tailRightUp;
+        else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "right")
+          asset = assets.tailLeftUp;
+        else
+          asset = assets.tailUp;
+      }
+      else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 1].heading == "up")
+      {
+        if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "left")
+          asset = assets.tailRightDown;
+        else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "right")
+          asset = assets.tailLeftDown;
+        else
+          asset = assets.tailDown;
+      }
+      else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 1].heading == "left")
+      {
+        if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "up")
+          asset = assets.tailDownRight;
+        else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "down")
+          asset = assets.tailUpRight;
+        else
+          asset = assets.tailRight;
+      }
+      else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 1].heading == "right")
+      {
+        if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "up")
+          asset = assets.tailDownLeft;
+        else if (myPlayer.snakePositions[myPlayer.snakePositions.length - 2].heading == "down")
+          asset = assets.tailUpLeft;
+        else
+          asset = assets.tailLeft;
+      }
+
+      context.drawImage(
+        asset,
+        (Math.round(myPlayer.snakePositions[myPlayer.snakePositions.length - 1].x)) * numPixelsPerTile,
+        (Math.round(myPlayer.snakePositions[myPlayer.snakePositions.length - 1].y)) * numPixelsPerTile,
+        myPlayer.width * numPixelsPerTile,
+        myPlayer.height * numPixelsPerTile);
+    }
 
     //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
     //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,

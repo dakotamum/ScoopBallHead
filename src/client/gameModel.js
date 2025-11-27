@@ -72,7 +72,7 @@ MyGame.gameModel = (function (
 
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
-    // MyGame.graphics.drawBackground(myPlayer);
+    MyGame.graphics.drawBackground();
     renderer.player.renderMyPlayer(myPlayer);
   };
 

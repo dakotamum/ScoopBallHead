@@ -24,7 +24,6 @@ function moveIt(direction, elapsedTime, snakePositions) {
   for (let i = 1; i < snakePositions.length; i++) {
     snakePositions[i] = snakeCopy[i - 1];
   }
-  console.log(snakePositions);
 }
 
 // Check if running in Node.js (CommonJS)

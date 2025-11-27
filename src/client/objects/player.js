@@ -6,6 +6,7 @@ MyGame.objects.player = function (spec) {
     y: 0,
   };
   let snakePositions = [
+    {x: 4, y: 5, heading: "down"},
     {x: 4, y: 4, heading: "down"},
     {x: 4, y: 3, heading: "down"},
     {x: 4, y: 2, heading: "down"}
