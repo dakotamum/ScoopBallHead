@@ -13,9 +13,6 @@ MyGame.objects.player = function (spec) {
   ]
   let width = 1;
   let height = 1;
-  let fill = "#a065cd";
-  let stroke = "#ddf8d0";
-  let moveTime = 0.0;
   let lastDirection = "down";
   let currentDirection = "down";
 
@@ -60,18 +57,6 @@ MyGame.objects.player = function (spec) {
     },
     set lastDirection(val) {
       lastDirection = val;
-    },
-    get radius() {
-      return radius;
-    },
-    set radius(val) {
-      radius = val;
-    },
-    get fill() {
-      return fill;
-    },
-    get stroke() {
-      return stroke;
     },
     get currentDirection() {
       return currentDirection;

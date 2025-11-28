@@ -26,6 +26,7 @@ let loadAssets = (function () {
     tailDownRight: "assets/tail-down-right.png",
     tailUpRight: "assets/tail-up-right.png",
     tailLeftDown: "assets/tail-left-down.png",
+    food: "assets/food.png",
   };
   let loadedAssets = 0;
   let assetCount = Object.keys(assetPaths).length;

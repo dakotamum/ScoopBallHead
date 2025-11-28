@@ -10,6 +10,7 @@ MyGame.gameModel = (function (
   let internalRender = null;
   let keyboard = input.Keyboard();
   let myPlayer = objects.player();
+  let food = objects.food();
   let directions = {
     up: false,
     down: false,
@@ -73,6 +74,7 @@ MyGame.gameModel = (function (
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
     MyGame.graphics.drawBackground();
+    MyGame.graphics.drawFood(food);
     renderer.player.renderMyPlayer(myPlayer);
   };
 

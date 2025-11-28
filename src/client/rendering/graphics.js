@@ -151,6 +151,19 @@ MyGame.graphics = (function (assets) {
     }
   }
 
+  function drawFood(food)
+  {
+    context.save();
+    context.drawImage(
+      assets.food,
+      food.coords.x,
+      food.coords.y,
+      numPixelsPerTile,
+      numPixelsPerTile);
+      context.save();
+      context.restore();
+  }
+
   // draw a texture from an image
   function drawTexture(image, center, rotation, size) {
     context.save();
@@ -413,6 +426,7 @@ MyGame.graphics = (function (assets) {
     },
     clear: clear,
     drawBackground: drawBackground,
+    drawFood: drawFood,
     drawRectangle: drawRectangle,
     drawCircle: drawCircle,
     drawTexture: drawTexture,
