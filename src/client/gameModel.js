@@ -46,10 +46,16 @@ MyGame.gameModel = (function (
       direction = "up";
     if (accumulatedMoveTime > millisecondsPerMove)
     {
+      let tail = myPlayer.snakePositions[myPlayer.snakePositions.length - 1];
       let numTimeSteps = Math.floor(accumulatedMoveTime / millisecondsPerMove);
       accumulatedMoveTime = accumulatedMoveTime % millisecondsPerMove;
       myPlayer.move(direction, numTimeSteps * millisecondsPerMove);
       myPlayer.lastDirection = direction;
+      if (myPlayer.snakePositions[0].x == food.coords.x && myPlayer.snakePositions[0].y == food.coords.y)
+      {
+        food.move(myPlayer);
+        myPlayer.snakePositions.push(tail);
+      }
     }
   }
 
@@ -74,8 +80,8 @@ MyGame.gameModel = (function (
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
     MyGame.graphics.drawBackground();
-    MyGame.graphics.drawFood(food);
     renderer.player.renderMyPlayer(myPlayer);
+    MyGame.graphics.drawFood(food);
   };
 
   // setup the game model for a new game

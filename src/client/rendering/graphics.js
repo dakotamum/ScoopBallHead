@@ -153,11 +153,12 @@ MyGame.graphics = (function (assets) {
 
   function drawFood(food)
   {
+    (food.coords.y);
     context.save();
     context.drawImage(
       assets.food,
-      food.coords.x,
-      food.coords.y,
+      food.coords.x * numPixelsPerTile,
+      food.coords.y * numPixelsPerTile,
       numPixelsPerTile,
       numPixelsPerTile);
       context.save();
@@ -310,7 +311,6 @@ MyGame.graphics = (function (assets) {
     //   rendSize * canvas.height / canvasSize_w
     // );
 
-    // console.log(myPlayer.x - (myPlayer.width / 2) * numActualPixelsPerPixel);
 
     // drawRectangle({
     //   fillStyle: "cyan",

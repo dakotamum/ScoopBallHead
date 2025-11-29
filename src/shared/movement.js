@@ -18,8 +18,8 @@ function moveIt(direction, elapsedTime, snakePositions) {
   }
 
   const snakeCopy = snakePositions.map(seg => ({...seg}));
-  snakePositions[0].y += (elapsedTime / 1000) * velocityConstant * Math.sin(angle);
-  snakePositions[0].x += (elapsedTime / 1000) * velocityConstant * Math.cos(angle);
+  snakePositions[0].y = Math.round(snakePositions[0].y + (elapsedTime / 1000) * velocityConstant * Math.sin(angle));
+  snakePositions[0].x = Math.round(snakePositions[0].x + (elapsedTime / 1000) * velocityConstant * Math.cos(angle));
   snakePositions[0].heading = direction;
   for (let i = 1; i < snakePositions.length; i++) {
     snakePositions[i] = snakeCopy[i - 1];
