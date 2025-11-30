@@ -1,10 +1,6 @@
 MyGame.objects.player = function (spec) {
   "use strict";
 
-  let center = {
-    x: 0,
-    y: 0,
-  };
   let snakePositions = [
     {x: 4, y: 5, heading: "down"},
     {x: 4, y: 4, heading: "down"},
@@ -27,12 +23,6 @@ MyGame.objects.player = function (spec) {
     },
     set moveTime(val) {
       moveTime = val;
-    },
-    get center() {
-      return center;
-    },
-    set center(val) {
-      center = val;
     },
     get snakePositions() {
       return snakePositions;
@@ -60,6 +50,9 @@ MyGame.objects.player = function (spec) {
     },
     get currentDirection() {
       return currentDirection;
+    },
+    set currentDirection(val) {
+      currentDirection = val;
     },
   };
   return api;

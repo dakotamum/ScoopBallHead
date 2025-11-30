@@ -27,6 +27,11 @@ MyGame.screens["gameplay"] = (function (
   }
 
   function gameLoop(time) {
+    if (gameModel.isGameOver)
+    {
+      cancelNextRequest = true;
+      game.showScreen("game-over");
+    }
     elapsedTime = time - previousTime;
     previousTime = time;
     processKeyboardInput(elapsedTime);
@@ -38,7 +43,6 @@ MyGame.screens["gameplay"] = (function (
   function initialize() {
     myKeyboard.register("Escape", function () {
       cancelNextRequest = true;
-      gameModel.disconnect();
       gameModel.disableControls();
       game.showScreen("main-menu");
     });

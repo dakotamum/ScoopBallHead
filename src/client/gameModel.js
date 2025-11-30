@@ -17,6 +17,7 @@ MyGame.gameModel = (function (
     left: false,
     right: false,
   };
+  let isGameOver = false;
 
   let accumulatedMoveTime = 0.0;
   let millisecondsPerMove = 250;
@@ -56,6 +57,13 @@ MyGame.gameModel = (function (
         food.move(myPlayer);
         myPlayer.snakePositions.push(tail);
       }
+      let outOfBounds = myPlayer.snakePositions[0].x > 7 || myPlayer.snakePositions[0].x < 0 || myPlayer.snakePositions[0].y > 7 || myPlayer.snakePositions[0].y < 0;
+      let selfDestructed = myPlayer.snakePositions.slice(1).some(bod => bod.x === myPlayer.snakePositions[0].x && bod.y === myPlayer.snakePositions[0].y);
+      if (outOfBounds || selfDestructed)
+      {
+        isGameOver = true;
+        disableControls();
+      }
     }
   }
 
@@ -73,10 +81,6 @@ MyGame.gameModel = (function (
   let updateMyGame = function (elapsedTime) {
   };
 
-  function disconnect() {
-    // socket.disconnect();
-  }
-
   // render the actively-playing state
   let renderMyGame = function (elapsedTime) {
     MyGame.graphics.drawBackground();
@@ -86,6 +90,11 @@ MyGame.gameModel = (function (
 
   // setup the game model for a new game
   function setupMyGame() {
+    myPlayer = objects.player();
+    myPlayer.currentDirection = "down";
+    myPlayer.lastDirection = "down";
+    food = objects.food();
+    isGameOver = false;
     internalUpdate = updateMyGame;
     internalRender = renderMyGame;
     enableControls();
@@ -151,15 +160,19 @@ MyGame.gameModel = (function (
     );
   }
 
-  // disable controls for the lander
-  function disableControls() {}
+  function disableControls() {
+    directions.up = false;
+    directions.down = false;
+    directions.left = false;
+    directions.right = false;
+  }
 
   return {
+    get isGameOver(){ return isGameOver;},
     setupMyGame: setupMyGame,
     processKeyboardInput: processKeyboardInput,
     update: update,
     render: render,
-    disconnect: disconnect,
     disableControls: disableControls,
   };
 })(

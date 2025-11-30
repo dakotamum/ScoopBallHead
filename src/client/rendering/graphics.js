@@ -87,51 +87,6 @@ MyGame.graphics = (function (assets) {
       }
     }
   }
-  function drawMyGameOverPanel(topSpot, score, kills) {
-    drawRectangle({
-      fillStyle: "rgba(0, 0, 0, 0.7)",
-      strokeStyle: "black",
-      x: canvas.width / 8,
-      y: canvas.height / 8,
-      width: (canvas.width * 3) / 4,
-      height: (canvas.height * 3) / 4,
-    });
-    drawRelativeText({
-      text: "RESULTS",
-      font: "24px Roboto",
-      fillStyle: "white",
-      strokeStyle: "white",
-      position: { x: 0.5, y: 0.2 },
-    });
-    drawRelativeText({
-      text: `Score: ${score}`,
-      font: "24px Roboto",
-      fillStyle: "white",
-      strokeStyle: "white",
-      position: { x: 0.5, y: 0.35 },
-    });
-    drawRelativeText({
-      text: `Best Spot: ${topSpot}`,
-      font: "24px Roboto",
-      fillStyle: "white",
-      strokeStyle: "white",
-      position: { x: 0.5, y: 0.5 },
-    });
-    drawRelativeText({
-      text: `Kills: ${kills}`,
-      font: "24px Roboto",
-      fillStyle: "white",
-      strokeStyle: "white",
-      position: { x: 0.5, y: 0.65 },
-    });
-    drawRelativeText({
-      text: "Press [Esc] to return to Main Menu",
-      font: "24px Roboto",
-      fillStyle: "red",
-      strokeStyle: "red",
-      position: { x: 0.5, y: 0.8 },
-    });
-  }
 
   function drawBackground() {
     for (let i = 0; i < numTiles_Width; i++)
@@ -186,18 +141,7 @@ MyGame.graphics = (function (assets) {
 
   // draw a frame of the player
   function drawMyPlayer(myPlayer) {
-    // let rendSize = size * 1.25;
     context.save();
-    // context.translate(center.x * canvas.width, center.y * canvas.height);
-    // context.rotate(rotation);
-    // context.translate(-center.x, -center.y);
-    context.drawImage(
-      (myPlayer.snakePositions[0].heading == "down" ? assets.headDown : (myPlayer.snakePositions[0].heading == "up" ? assets.headUp : (myPlayer.snakePositions[0].heading == "left" ? assets.headLeft : assets.headRight))),
-      (Math.round(myPlayer.snakePositions[0].x)) * numPixelsPerTile,
-      (Math.round(myPlayer.snakePositions[0].y)) * numPixelsPerTile,
-      myPlayer.width * numPixelsPerTile,
-      myPlayer.height * numPixelsPerTile);
-
     myPlayer.snakePositions.forEach((value, i) => {
       if (i !== 0 && i != myPlayer.snakePositions.length - 1)
       {
@@ -293,114 +237,16 @@ MyGame.graphics = (function (assets) {
         myPlayer.width * numPixelsPerTile,
         myPlayer.height * numPixelsPerTile);
     }
-
-    //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
-    //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
-    //   width: myPlayer.width * numActualPixelsPerPixel,
-    //   height: myPlayer.height * numActualPixelsPerPixel,
-
+    context.drawImage(
+      (myPlayer.snakePositions[0].heading == "down" ? assets.headDown : (myPlayer.snakePositions[0].heading == "up" ? assets.headUp : (myPlayer.snakePositions[0].heading == "left" ? assets.headLeft : assets.headRight))),
+      (Math.round(myPlayer.snakePositions[0].x)) * numPixelsPerTile,
+      (Math.round(myPlayer.snakePositions[0].y)) * numPixelsPerTile,
+      myPlayer.width * numPixelsPerTile,
+      myPlayer.height * numPixelsPerTile);
     context.save();
-    // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
-    // context.translate(-center.x, -center.y);
-    // context.drawImage(
-    //   image, (frameNumber % 16) * 256,
-    //   Math.floor(frameNumber / 16) * 256, 256, 256,
-    //   (0.5 * canvas.width) - (rendSize * canvas.width / (2 * canvasSize_w)),
-    //   (0.5 * canvas.height) - (1.5 * rendSize * canvas.height / (2 * canvasSize_w)),
-    //   rendSize * canvas.width / canvasSize_w,
-    //   rendSize * canvas.height / canvasSize_w
-    // );
-
-
-    // drawRectangle({
-    //   fillStyle: "cyan",
-    //   strokeStyle: "",
-    //   x: (Math.round(myPlayer.center.x) - (myPlayer.width / 2)) * numActualPixelsPerPixel,
-    //   y: (Math.round(myPlayer.center.y) - (myPlayer.height / 2)) * numActualPixelsPerPixel,
-    //   width: myPlayer.width * numActualPixelsPerPixel,
-    //   height: myPlayer.height * numActualPixelsPerPixel,
-    // });
-
-    // drawCircle({
-    //   fillStyle: "#22a7d4",
-    //   strokeStyle: "",
-    //   x: 0.5 * canvas.width, // Center of canvas horizontally
-    //   y: 0.5 * canvas.height, // Center of canvas vertically
-    //   radius: (0.5 * myPlayer.radius * canvas.width) / canvasSize_w, // Radius proportional to canvas size
-    // });
-
     context.restore();
   }
 
-  function drawOtherPlayer(myPlayer, otherPlayer) {
-    // let rendSize = size * 1.25;
-
-    let relX = (otherPlayer.state.center.x - myPlayer.center.x) / canvasSize_World;
-    let relY = (otherPlayer.state.center.y - myPlayer.center.y) / canvasSize_World;
-
-    context.save();
-    // context.translate(center.x * canvas.width, center.y * canvas.height);
-    // context.rotate(rotation);
-    // context.translate(-center.x, -center.y);
-    // context.drawImage(
-    //   image,
-    //   center.x - (size.width * canvas.width) / 2,
-    //   center.y - (size.height * canvas.height) / 2,
-    //   size.width * canvas.width,
-    //   size.height * canvas.height);
-
-    context.save();
-    // context.translate(0.5 * canvas.width, 0.5 * canvas.height);
-    // context.translate(-center.x, -center.y);
-    // context.drawImage(
-    //   image, (frameNumber % 16) * 256,
-    //   Math.floor(frameNumber / 16) * 256, 256, 256,
-    //   (0.5 * canvas.width) - (rendSize * canvas.width / (2 * canvasSize_w)),
-    //   (0.5 * canvas.height) - (1.5 * rendSize * canvas.height / (2 * canvasSize_w)),
-    //   rendSize * canvas.width / canvasSize_w,
-    //   rendSize * canvas.height / canvasSize_w
-    // );
-
-    // drawRectangle({
-    //   fillStyle: "yellow",
-    //   strokeStyle: "",
-    //   x: (0.5 * canvas.width) - (size * canvas.width / (2 * canvasSize_w)),
-    //   y: (0.5 * canvas.height) - (size * canvas.height / (2 * canvasSize_w)),
-    //   width: size * canvas.width / canvasSize_w,
-    //   height: size * canvas.height / canvasSize_w
-    // });
-
-    drawCircle({
-      fillStyle: "#ff00ff",
-      strokeStyle: "",
-      x: (relX + 0.5) * canvas.width,
-      y: (relY + 0.5) * canvas.width,
-      radius: (0.5 * otherPlayer.radius * canvas.width) / canvasSize_World, // Radius proportional to canvas size
-    });
-
-    context.restore();
-  }
-
-  function drawRelativeText(spec) {
-    context.save();
-
-    context.font = spec.font;
-    context.fillStyle = spec.fillStyle;
-    context.strokeStyle = spec.strokeStyle;
-    context.textBaseline = "top";
-    context.textBaseline = "middle";
-    let width = context.measureText(spec.text).width;
-
-    context.translate(
-      spec.position.x * canvas.width - width / 2,
-      spec.position.y * canvas.width,
-    );
-
-    context.fillText(spec.text, spec.position.x, spec.position.y);
-    context.strokeText(spec.text, spec.position.x, spec.position.y);
-
-    context.restore();
-  }
   // draw text
   function drawText(spec) {
     context.save();
@@ -431,11 +277,8 @@ MyGame.graphics = (function (assets) {
     drawCircle: drawCircle,
     drawTexture: drawTexture,
     drawMyPlayer: drawMyPlayer,
-    drawOtherPlayer: drawOtherPlayer,
     drawText: drawText,
-    drawRelativeText: drawRelativeText,
     drawScores: drawScores,
-    drawMyGameOverPanel: drawMyGameOverPanel,
   };
 
   return api;
